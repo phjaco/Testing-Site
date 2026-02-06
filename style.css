@@ -1,0 +1,58 @@
+:root {
+  --bg: #F4E1C1;      /* soft sand background */
+  --text: #7B5E57;    /* dark sand text */
+  --accent: #ae6b28;  /* warm gold for links */
+  --accent-light: #E5C48D; /* hover or secondary accent */
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+.nav {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.nav a {
+  color: var(--accent);
+  margin: 0 1rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav a:hover {
+  color: var(--accent-light);
+}
+
+#content {
+  min-height: 100vh;
+  padding: 6rem 2rem;
+}
+
+.section {
+  background: #EEDFC5;
+  padding: 4rem 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+h1, h2, p {
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+#content {
+  min-height: 100vh;
+  background: #F4E1C1; /* sandy background */
+  color: #7B5E57;
+  padding: 6rem 2rem;
+}
+
