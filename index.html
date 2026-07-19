@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Portfolio</title>
+
 <style>
 :root {
   --bg: #F4E1C1;
@@ -12,19 +13,23 @@
   --accent-light: #E5C48D;
 }
 
-/* Reset & body */
+/* ---------------- RESET ---------------- */
+
 html, body {
   margin: 0;
   height: 100%;
-  background: var(--bg) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgQX44vIAAAAASUVORK5CYII=') repeat;
+  background: var(--bg);
   color: var(--text);
   font-family: system-ui, sans-serif;
-  overflow-y: auto;
 }
 
-body { display: flex; flex-direction: column; }
+body {
+  display: flex;
+  flex-direction: column;
+}
 
-/* Navigation */
+/* ---------------- NAV ---------------- */
+
 .nav {
   position: fixed;
   top: 1rem;
@@ -32,18 +37,19 @@ body { display: flex; flex-direction: column; }
   transform: translateX(-50%);
   z-index: 10;
 }
+
 .nav a {
   color: var(--accent);
   text-decoration: none;
   margin: 0 1rem;
   position: relative;
-  transition: color 0.3s ease;
 }
+
 .nav a::after {
   content: "";
   position: absolute;
-  left: 0;
   bottom: -3px;
+  left: 0;
   width: 100%;
   height: 2px;
   background: var(--accent-light);
@@ -51,42 +57,36 @@ body { display: flex; flex-direction: column; }
   transform-origin: right;
   transition: transform 0.3s ease;
 }
-.nav a:hover { color: var(--accent-light); }
-.nav a:hover::after { transform: scaleX(1); transform-origin: left; }
 
-/* Content container */
-#content {
-  flex: 1;
-  width: 100%;
-  min-height: 100vh;
-  padding: 6rem 2rem;
-  box-sizing: border-box;
-  position: relative;
+.nav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
-/* Pages */
+/* ---------------- CONTENT ---------------- */
+
+#content {
+  padding: 6rem 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .page {
   display: none;
 }
+
 .page.active {
   display: block;
 }
 
-/* Modular blocks */
+/* ---------------- BLOCK SYSTEM ---------------- */
+
 .block {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2rem;
-  padding: 2rem 0;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  opacity: 0;          /* hidden initially */
+  padding: 3rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.block:last-child {
-  border-bottom: none;
 }
 
 .block.visible {
@@ -94,145 +94,257 @@ body { display: flex; flex-direction: column; }
   transform: translateY(0);
 }
 
-.block .text {
-  flex: 1 1 300px;
+.block:last-child {
+  border-bottom: none;
 }
-.block .text h2 { margin-top: 0; }
-.block .text p { margin-bottom: 0; }
 
-.block .image {
-  flex: 1 1 300px;
+/* Two-column layout */
+.block.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.block.two-col.reverse {
+  direction: rtl;
+}
+.block.two-col.reverse > * {
+  direction: ltr;
+}
+
+/* Full-width layout */
+.block.full {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .block.two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------- TEXT ---------------- */
+
+.text h2 {
+  margin-top: 0;
+}
+
+.text p {
+  line-height: 1.6;
+}
+
+/* ---------------- IMAGES ---------------- */
+
+.image {
   text-align: center;
 }
-.block .image img {
+
+.image img {
   max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
 }
 
-/* Reverse blocks for variety */
-.block.reverse {
-  flex-direction: row-reverse;
+/* Optional smaller image */
+.img-small img {
+  max-width: 280px;
 }
-@media (max-width: 768px) {
-  .block, .block.reverse { flex-direction: column; }
+
+/* ---------------- CAROUSEL ---------------- */
+
+.carousel {
+  position: relative;
+  max-width: 420px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-track img {
+  min-width: 100%;
+  border-radius: 10px;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+.carousel-dots button {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+.carousel-dots button.active {
+  background: var(--accent);
+  transform: scale(1.3);
 }
 </style>
 </head>
+
 <body>
 
-<!-- Navigation -->
 <nav class="nav">
   <a href="#home" data-link>Home</a>
   <a href="#projects" data-link>Projects</a>
   <a href="#contact" data-link>Contact</a>
 </nav>
 
-<!-- Content -->
 <main id="content">
 
-  <!-- Home Page -->
-  <section id="home" class="page active">
-    <div class="block">
-      <div class="text">
-        <h2>Welcome</h2>
-        <p>Welcome to my portfolio! Explore my work and projects below.</p>
-      </div>
-      <div class="image">
-        <img src="home-image.jpg" alt="Home image">
-      </div>
-    </div>
-    <div class="block reverse">
-      <div class="text">
-        <h2>About Me</h2>
-        <p>I am a developer and designer creating modern web experiences.</p>
-      </div>
-      <div class="image">
-        <img src="about-image.jpg" alt="About me image">
-      </div>
-    </div>
-  </section>
+<!-- ================= HOME ================= -->
 
-  <!-- Projects Page -->
-  <section id="projects" class="page">
-    <div class="block">
-      <div class="text">
-        <h2>Project One</h2>
-        <p>Description of Project One. Amazing visuals and functionality.</p>
-      </div>
-      <div class="image">
-        <img src="project1.jpg" alt="Project One Screenshot">
-      </div>
-    </div>
-    <div class="block reverse">
-      <div class="text">
-        <h2>Project Two</h2>
-        <p>Description of Project Two. Sleek and interactive design.</p>
-      </div>
-      <div class="image">
-        <img src="project2.jpg" alt="Project Two Screenshot">
-      </div>
-    </div>
-  </section>
+<section id="home" class="page active">
 
-  <!-- Contact Page -->
-  <section id="contact" class="page">
-    <div class="block">
-      <div class="text">
-        <h2>Contact Me</h2>
-        <p>Email: you@example.com</p>
-        <p>Feel free to reach out for collaborations or inquiries.</p>
-      </div>
-      <div class="image">
-        <img src="contact-image.jpg" alt="Contact image">
-      </div>
+  <div class="block two-col visible">
+    <div class="text">
+      <h2>Welcome</h2>
+      <p>This portfolio highlights selected projects and design work.</p>
     </div>
-  </section>
+    <div class="image img-small">
+      <img src="/images/home.png">
+    </div>
+  </div>
+
+</section>
+
+<!-- ================= PROJECTS ================= -->
+
+<section id="projects" class="page">
+
+  <!-- Text + Image -->
+  <div class="block two-col">
+    <div class="text">
+      <h2>Project One</h2>
+      <p>A clean two-column layout with a single image.</p>
+    </div>
+    <div class="image">
+      <img src="/images/proj/proj1.png">
+    </div>
+  </div>
+
+  <!-- Text + Carousel -->
+  <div class="block two-col reverse">
+    <div class="text">
+      <h2>Project Gallery</h2>
+      <p>This project uses a carousel to show multiple views.</p>
+    </div>
+
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <img src="/images/proj/proj1-1.png">
+        <img src="/images/proj/proj1-2.png">
+        <img src="/images/proj/proj1-3.png">
+        <img src="/images/proj/proj1-4.png">
+        <img src="/images/proj/proj1-5.png">
+      </div>
+      <div class="carousel-dots"></div>
+    </div>
+  </div>
+
+  <!-- Full-width carousel -->
+  <div class="block full">
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <img src="/images/proj/proj2-1.png">
+        <img src="/images/proj/proj2-2.png">
+        <img src="/images/proj/proj2-3.png">
+      </div>
+      <div class="carousel-dots"></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ================= CONTACT ================= -->
+
+<section id="contact" class="page">
+
+  <div class="block full">
+    <div class="text">
+      <h2>Contact</h2>
+      <p>Email: you@example.com</p>
+    </div>
+  </div>
+
+</section>
 
 </main>
 
 <script>
 const pages = document.querySelectorAll(".page");
 const links = document.querySelectorAll(".nav a");
-let currentId = location.hash.substring(1) || "home";
 
-// Show a page by ID
 function showPage(id) {
-  pages.forEach(page => page.classList.remove("active"));
-  const nextPage = document.getElementById(id);
-  nextPage.classList.add("active");
+  pages.forEach(p => p.classList.remove("active"));
+  const page = document.getElementById(id);
+  page.classList.add("active");
 
-  // Trigger block animations
-  const blocks = nextPage.querySelectorAll(".block");
-  blocks.forEach(block => block.classList.remove("visible"));
-  blocks.forEach((block, i) => {
-    setTimeout(() => block.classList.add("visible"), i * 150); // stagger animation
-  });
+  const blocks = page.querySelectorAll(".block");
+  blocks.forEach(b => b.classList.remove("visible"));
+  blocks.forEach((b, i) =>
+    setTimeout(() => b.classList.add("visible"), i * 150)
+  );
 
-  currentId = id;
-  history.pushState(null, "", `#${id}`);
+  history.pushState(null, "", "#" + id);
 }
 
-// Navigation click
 links.forEach(link => {
   link.addEventListener("click", e => {
     e.preventDefault();
-    const target = link.getAttribute("href").substring(1);
-    showPage(target);
+    showPage(link.getAttribute("href").substring(1));
   });
 });
 
-// Handle back/forward
 window.addEventListener("popstate", () => {
-  const hash = location.hash.substring(1) || "home";
-  showPage(hash);
+  showPage(location.hash.substring(1) || "home");
 });
 
-// Initial load
-window.addEventListener("DOMContentLoaded", () => {
-  showPage(currentId);
-});
+/* -------- CAROUSELS -------- */
+
+function initCarousels() {
+  document.querySelectorAll("[data-carousel]").forEach(carousel => {
+    if (carousel.dataset.ready) return;
+    carousel.dataset.ready = "true";
+
+    const track = carousel.querySelector(".carousel-track");
+    const slides = [...track.children];
+    const dots = carousel.querySelector(".carousel-dots");
+    let index = 0;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement("button");
+      dot.onclick = () => {
+        index = i;
+        update();
+      };
+      dots.appendChild(dot);
+    });
+
+    function update() {
+      track.style.transform = `translateX(-${index * 100}%)`;
+      [...dots.children].forEach(d => d.classList.remove("active"));
+      dots.children[index].classList.add("active");
+    }
+
+    update();
+  });
+}
+
+initCarousels();
 </script>
 
 </body>

@@ -1,9 +1,9 @@
 const content = document.getElementById("content");
 
-/* Page cache */
+/* ---------------- PAGE CACHE ---------------- */
+
 const pageCache = new Map();
 
-/* Fetch + cache page */
 async function fetchPage(url) {
   if (pageCache.has(url)) return pageCache.get(url);
 
@@ -13,30 +13,30 @@ async function fetchPage(url) {
   return html;
 }
 
-/* Load page without flashing */
+/* ---------------- LOAD PAGE ---------------- */
+
 async function loadPage(url, pushState = true) {
   const html = await fetchPage(url);
 
-  // Create a temporary container
   const temp = document.createElement("div");
   temp.innerHTML = html;
 
-  // Get new page section
   const newPage = temp.querySelector(".page");
+  if (!newPage) return;
 
-  // Keep old children visible until new page is ready
-  // Clear old children and append new one in memory
   content.replaceChildren(newPage);
 
-  // Trigger fade-in animation
   requestAnimationFrame(() => {
     newPage.classList.add("page-loaded");
+    updateParallax();     // re-init parallax
+    initCarousels();      // ✅ INIT CAROUSELS HERE
   });
 
   if (pushState) history.pushState(null, "", url);
 }
 
-/* Intercept nav clicks */
+/* ---------------- NAVIGATION ---------------- */
+
 document.addEventListener("click", e => {
   const link = e.target.closest("a[data-link]");
   if (!link) return;
@@ -45,39 +45,66 @@ document.addEventListener("click", e => {
   loadPage(link.getAttribute("href"));
 });
 
-/* Back/forward support */
 window.addEventListener("popstate", () => {
   loadPage(location.pathname, false);
 });
 
-/* Initial load */
-loadPage(location.pathname === "/" ? "/home.html" : location.pathname, false);
-
-/* Preload all pages */
-const preloadUrls = ["/home.html", "/projects.html", "/contact.html"];
-preloadUrls.forEach(url => fetchPage(url));
-
-const blocks = () => document.querySelectorAll(".block");
+/* ---------------- PARALLAX ---------------- */
 
 function updateParallax() {
-  const viewportHeight = window.innerHeight;
+  const blocks = document.querySelectorAll(".block");
+  const vh = window.innerHeight;
 
-  blocks().forEach(block => {
+  blocks.forEach(block => {
     const rect = block.getBoundingClientRect();
-
-    // Distance from center of viewport
-    const offset = rect.top + rect.height / 2 - viewportHeight / 2;
-
-    // Tune this value for strength (smaller = subtler)
+    const offset = rect.top + rect.height / 2 - vh / 2;
     const translateY = offset * -0.15;
-
     block.style.transform = `translateY(${translateY}px)`;
   });
 }
 
-// Run on scroll + initial load
 window.addEventListener("scroll", updateParallax, { passive: true });
 window.addEventListener("resize", updateParallax);
-updateParallax();
 
-content.replaceChildren(newPage);
+/* ---------------- CAROUSELS ---------------- */
+
+function initCarousels() {
+  document.querySelectorAll("[data-carousel]").forEach(carousel => {
+    if (carousel.dataset.ready) return;
+    carousel.dataset.ready = "true";
+
+    const track = carousel.querySelector(".carousel-track");
+    const images = [...track.children];
+    const dotsContainer = carousel.querySelector(".carousel-dots");
+
+    let index = 0;
+
+    images.forEach((_, i) => {
+      const dot = document.createElement("button");
+      if (i === 0) dot.classList.add("active");
+
+      dot.addEventListener("click", () => {
+        index = i;
+        update();
+      });
+
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = [...dotsContainer.children];
+
+    function update() {
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach(d => d.classList.remove("active"));
+      dots[index].classList.add("active");
+    }
+
+    update();
+  });
+}
+
+/* ---------------- INIT ---------------- */
+
+loadPage(location.pathname === "/" ? "/home.html" : location.pathname, false);
+
+["/home.html", "/projects.html", "/contact.html"].forEach(fetchPage);
