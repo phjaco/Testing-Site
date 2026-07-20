@@ -15,6 +15,7 @@
     <nav class="nav">
       <a href="#home">Home</a>
       <a href="#projects">Projects</a>
+      <a href="#quickoverview">Quick Overview</a>
       <a href="#resume">Resume</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -91,6 +92,40 @@
 
         </section>
 
+<!-- ## QUICK OVERVIEW SECTION -->
+
+    <section id="quickoverview" class="page active"></section>
+
+    <!-- Centered Text Block -->
+<div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
+  <h2>A Quick Overview</h2>
+  <p>This page is for a quick, general overview of different things that I've worked on without getting into the details.</p>
+</div>
+
+<!-- 3D Model Block - Model Right -->
+<div class="block grid-block">
+  
+  <div class="text-content">
+    <h2>FSAE Uprights</h2>
+    <p>
+      Over the course of several months, hundreds of pages of research, and hundreds of hours more of simulation, I created a set of front and rear uprights for my university's FSAE car.
+    </p>
+    <div class="tags">
+      <span style="background:var(--accent); color:white; padding:4px 10px; border-radius:15px; font-size:0.8rem;">Blender</span>
+      <span style="border:1px solid var(--text); padding:3px 10px; border-radius:15px; font-size:0.8rem;">GLB</span>
+    </div>
+  </div>
+
+  <model-viewer 
+    src="contents/projects/uprights/fupright.glb" 
+    alt="A 3D model of one of the uprights"
+    auto-rotate 
+    camera-controls 
+    shadow-intensity="1"
+    style="background-color: #f0f0f0; border-radius: 12px;">
+  </model-viewer>
+
+</div>
 
 <!-- ## RESUME SECTION -->
 
