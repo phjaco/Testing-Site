@@ -1,232 +1,734 @@
+/* -------------------------------------------------------------------------- */
+/* 1. THEME & RESET                           */
+/* -------------------------------------------------------------------------- */
+
+  /* --bg: #F9F4EF;  */        /* Light cream for readability */
+  /* --text: #5D4037;  */      /* Dark coffee text */
+  /* --accent: #C79667; */     /* Warm gold */
+/*   --accent-hover: #AB7B50;
+  --card-bg: #ffffff;
+  --linkedin: #0077B5;
+  --radius: 12px;
+  --nav-bg: rgba(255, 255, 255, 0.8);
+  --RickyColor: #40E0D0; */
+
 :root {
-  --bg: #F4E1C1;       /* sandy background */
-  --text: #7B5E57;     /* dark sand text */
-  --accent: #D4A373;   /* warm gold links */
-  --accent-light: #E5C48D;
+  --bg: #fcfaf7;         /* Light cream for readability */
+  --text: #5D4037;       /* Dark coffee text */
+  --accent: #7adee9;     /* Warm gold */
+  --accent-hover: #64d2d7;
+  --card-bg: #ffffff;
+  --linkedin: #0077B5;
+  --radius: 12px;
+  --nav-bg: rgba(255, 255, 255, 0.8);
+  --RickyColor: #40E0D0;
 }
 
-html, body {
-  margin: 0;
-  height: 100%;
-  background: var(--bg); /* stable background */
-  font-family: system-ui, sans-serif;
-  color: var(--text);
-
+html {
+  scroll-behavior: smooth;
+  overflow-y: scroll; /* Prevents layout jump */
 }
 
 body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.7;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Ensure the taskbar grows with the dynamic content */
+.taskbar-tabs {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.project-taskbar:hover {
+  width: auto; /* Allow it to fit the text of the project titles */
+  min-width: 320px;
+  padding: 8px 24px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2. FLOATING DOCK NAVIGATION                         */
+/* -------------------------------------------------------------------------- */
+/* --- FLOATING NAV --- */
+.nav-container {
+  position: fixed;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
 }
 
 .nav {
-  position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-}
-
-.nav a {
-  color: var(--accent);
-  text-decoration: none;
-  margin: 0 1rem;
-  transition: color 0.2s ease;
-}
-
-.nav a:hover {
-  color: var(--accent-light);
-}
-
-/* Content container */
-#content {
-  flex: 1;
-  min-height: 100vh;
-  padding: 6rem 2rem;
-  background: var(--bg); /* prevents flash */
-}
-
-/* Page section styling */
-.page {
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-.nav a {
-  color: var(--accent);
-  text-decoration: none;
-  margin: 0 1rem;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  width: 100%;
-  height: 2px;
-  background: var(--accent-light);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s ease;
-}
-
-.nav a:hover {
-  color: var(--accent-light);
-}
-
-.nav a:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-
-.page {
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.6;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-/* Active page visible immediately */
-.page-loaded {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.page * {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  transition-delay: var(--delay, 0s);
-}
-
-.page-loaded * {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-  background: var(--bg);  /* persistent sandy background */
-  color: var(--text);
-  font-family: system-ui, sans-serif;
-  overflow-y: scroll;      /* avoids scrollbar flashes */
-}
-
-#content {
-  min-height: 100vh;
-  background: var(--bg);  /* ensures container never flashes white */
-}
-
-/* Page fade-in */
-.page {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.page-loaded {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.block {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(15px);
+  padding: 8px;
+  border-radius: 50px;
   display: flex;
-  flex-wrap: wrap;       /* wrap on small screens */
-  align-items: center;
-  gap: 2rem;
-  padding: 2rem 0;
-  border-bottom: 1px solid rgba(0,0,0,0.05); /* subtle separation */
+  gap: 5px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,255,255,0.4);
 }
 
-.block:last-child {
-  border-bottom: none;
+.nav a {
+  padding: 10px 22px;
+  border-radius: 25px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.9rem;
+  
+  /* THIS IS THE MAGIC: Transition multiple properties */
+  transition: 
+    background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.4s ease,
+    transform 0.2s ease,
+    box-shadow 0.4s ease;
 }
 
-.block .text {
-  flex: 1 1 300px;       /* flexible width */
+/* Hover: subtle lift and light background */
+.nav a:hover:not(.active) {
+  background-color: rgba(199, 150, 103, 0.1);
+  transform: translateY(-1px);
 }
 
-.block .text h2 {
-  margin-top: 0;
+/* ACTIVE STATE: The "Animated" look */
+.nav a.active {
+  background-color: var(--accent); /* Your Gold/Brown color */
+  color: white;
+  box-shadow: 0 4px 12px rgba(199, 150, 103, 0.3);
+  transform: scale(1.05); /* Slightly grows when active */
 }
 
-.block .text p {
-  margin-bottom: 0;
+/* Click effect */
+.nav a:active {
+  transform: scale(0.95);
 }
 
-.block .image {
-  flex: 1 1 300px;
-  text-align: center;
+/* -------------------------------------------------------------------------- */
+/* 3. PAGE & BLOCK SYSTEM                            */
+/* -------------------------------------------------------------------------- */
+main {
+  max-width: 1000px;
+  margin: 100px auto 4rem; /* Space for fixed nav */
+  padding: 0 2rem;
+  flex: 1;
 }
 
-.block .image img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;     /* soft corners for style */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.page {
+  display: none; /* Hidden by default */
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.page.active {
+  display: block; /* Shown when active */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .block {
-  will-change: transform;
-  transform: translateY(60px);
-  transition: transform 0.1s linear;
+  margin-bottom: 6rem;
+  opacity: 1; /* Reset from previous transition attempts */
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .block {
-    transform: none !important;
-  }
+/* Grid Layout (Text + Media) */
+.grid-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
 }
 
-/* ---------------- CAROUSEL ---------------- */
+/* Simple text block */
+.text-content h2 {
+  color: var(--accent);
+  margin-top: 0;
+  font-size: 2rem;
+}
 
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  padding: 10px 24px;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  margin-top: 1rem;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background: var(--accent-hover);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 4. MEDIA (CAROUSEL & 3D)                          */
+/* -------------------------------------------------------------------------- */
 .carousel {
   position: relative;
   overflow: hidden;
-  width: 100%;
-  max-width: 420px;
-  margin: 0 auto;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  background: #eee;
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 0.5s ease;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .carousel-track img {
-  min-width: 100%;
-  height: auto;
-  user-select: none;
+  width: 100%;
+  flex-shrink: 0;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-nav {
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(199, 199, 199, 0.8);
+  cursor: pointer;
+  padding: 0;
+}
+
+.dot.active {
+  background: white;
+  transform: scale(1.2);
+}
+
+/* 3D Model Viewer */
+model-viewer {
+  width: 100%;
+  height: 400px;
+  background-color: #f0f0f0;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* --- PARALLAX REVEAL --- */
+.parallax-container {
+  position: relative;
+  height: 500px; /* Adjust height as needed */
+  overflow: hidden;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -2rem; /* Pulls it out to the edges of the main container */
+  margin-right: -2rem;
+  width: calc(100% + 4rem);
+}
+
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* This creates the "cutout" feel */
+  z-index: 1;
+}
+
+/* Optional Dark Overlay to make text readable */
+.parallax-overlay {
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.4); /* Darkens the image slightly */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* Mobile Fix: background-attachment: fixed often breaks on iOS */
+@media (max-width: 768px) {
+  .parallax-bg {
+    background-attachment: scroll;
+  }
+  .parallax-container {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    border-radius: var(--radius);
+  }
+}
+
+/* --- SOCIAL CONTACT STYLES --- */
+.social-contact {
+  padding: 2rem;
+}
+
+/* Make LinkedIn button full-width within the 600px container */
+.linkedin-btn {
+  margin: 0 auto;
+  display:block;
+  justify-content: center;
+  width: 75%*auto;
+  box-sizing: border-box;
+  background: transparent;
+  color: var(--linkedin); /* LinkedIn Blue */
+  border: 2px solid var(--linkedin);
+}
+
+.linkedin-btn:hover {
+  background: var(--linkedin);
+  color: white;
+}
+
+/* Creates the symmetric row */
+.social-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Adjusts the two bottom buttons to share space equally */
+.secondary-btn {
+  flex: 1; /* Makes them equal width */
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--accent);
+}
+
+.secondary-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* Stack buttons on very small screens */
+@media (max-width: 480px) {
+  .social-row {
+    flex-direction: column;
+  }
+}
+
+/* --- CIRCULAR SCROLL TO TOP --- */
+#scroll-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Makes it circular */
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  
+  /* Initial state: Hidden */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* State when visible (triggered by JS) */
+#scroll-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#scroll-top:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-5px); /* Gentle lift on hover */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+#scroll-top:active {
+  transform: scale(0.9); /* Tactical click feedback */
+}
+
+/* --- PROJECT REDIRECT STYLES --- */
+
+.project-card {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.project-card img, .redirect-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.project-card:hover img, .project-redirect:hover img {
+  transform: scale(1.1);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  color: white;
+  font-weight: bold;
+  text-shadow: #000000 4px 4px 8px;
+}
+
+.project-card:hover .card-overlay {
+  opacity: 1;
+  background: rgba(93, 64, 55, 0.6); /* Coffee color overlay */
+}
+
+.project-redirect {
+  cursor: pointer;
+  transition: background 0.3s ease;
+  padding: 1rem;
+  border-radius: var(--radius);
+}
+
+.project-redirect:hover {
+  background: rgba(199, 150, 103, 0.05);
+}
+
+.project-footer-nav {
+  margin-top: 5rem;
+  padding: 2rem;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  background: var(--bg);
+}
+
+.nav-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-link {
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 600;
+  opacity: 0.6;
+}
+
+.back-link:hover { opacity: 1; }
+
+.next-up {
+  text-align: right;
+  cursor: pointer;
+}
+
+.next-up span {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.next-up strong {
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.next-up:hover strong {
+  color: var(--accent);
+}
+
+/* --- SYMMETRIC HOVER TASKBAR --- */
+.project-taskbar {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  
+  /* Initial State: Perfectly circular */
+  width: 54px; 
+  height: 54px;
+  background: var(--accent);
+  border-radius: 50px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  transition: width 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              background 0.3s ease, 
+              box-shadow 0.3s ease,
+              opacity 0.4s ease;
+  
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 }
 
-/* Dots */
-.carousel-dots {
+body.in-project .project-taskbar {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* THE HOVER EXPANSION */
+.project-taskbar:hover {
+  width: auto;
+  min-width: 400px; /* Wider for better symmetry */
+  padding: 0 25px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid var(--accent);
+}
+
+/* THE ICON (Centered in circle) */
+.taskbar-circle {
+  position: absolute; /* Lock to center of the initial circle */
+  left: 0;
+  width: 54px;
+  height: 54px;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  margin-top: 0.75rem;
+  transition: transform 0.4s ease, opacity 0.3s ease;
 }
 
-.carousel-dots button {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(0,0,0,0.25);
+.taskbar-circle .icon {
+  color: white;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* Hide the icon when expanded to make room for text */
+.project-taskbar:hover .taskbar-circle {
+  opacity: 0;
+  transform: rotate(90deg) scale(0);
+}
+
+/* TABS CONTAINER (The Buttons) */
+.taskbar-tabs {
+  display: flex;
+  opacity: 0;
+  gap: 15px;
+  white-space: nowrap;
+  transition: opacity 0.3s ease 0.2s;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.project-taskbar:hover .taskbar-tabs {
+  opacity: 1;
+}
+
+/* BUTTON FORMATTING (Adding the "Nice" visual elements back) */
+.task-item {
+  background: rgba(199, 150, 103, 0.1); /* Light gold tint */
+  border: 1px solid transparent;
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text);
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.carousel-dots button.active {
+.task-item:hover {
   background: var(--accent);
-  transform: scale(1.25);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(199, 150, 103, 0.3);
+}
+
+/* Special styling for the Next button to distinguish it */
+.next-task {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.next-task:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+/* Container logic for the split layout */
+.table-layout {
+  gap: 3rem;
+  align-items: center; /* Centers table vertically against the text */
+}
+
+.table-container {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(93, 64, 55, 0.1); /* Subtle coffee-colored border */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.link-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.link-table th {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 2px solid var(--bg);
+  color: var(--accent);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.link-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--bg);
+  font-size: 0.95rem;
+}
+
+/* Small button styling for table links */
+.btn-small {
+  display: inline-block;
+  padding: 5px 12px;
+  background: var(--bg); /* Lighter background for the button */
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  border: 1px solid var(--accent);
+  transition: all 0.3s ease;
+}
+
+.btn-small:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* --- FULL-WIDTH PARALLAX --- */
+.parallax-fullscreen {
+  position: relative;
+  height: 70vh; /* Adjust height as needed */
+  overflow: hidden;
+  
+  /* Forces the block to ignore container padding and hit the screen edges */
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  left: 0;
+  
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.parallax-bg-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%; /* Extra height handles the parallax movement buffer */
+  
+  /* File Reference Handling */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Creates the "cutout" scroll effect */
+  
+  z-index: 1;
+}
+
+.parallax-overlay-full {
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.25); /* Subtle dark wash to make text pop */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-btn {
+  margin: 0 auto;
+  display:block;
+  justify-content: center;
+  width: 75%*auto;
+  box-sizing: border-box;
+  background: transparent;
+  color: var(--RickyColor);
+  border: 2px solid var(--RickyColor);
+}
+
+.copy-btn:active {
+  transform: scale(0.95);
+}
+
+.copy-btn:hover {
+  background: var(--RickyColor);
+  color: white;
+}
+
+/* Mobile Compatibility */
+@media (max-width: 768px) {
+  .parallax-bg-full {
+    background-attachment: scroll; /* Fixed backgrounds often glitch on mobile browsers */
+  }
+  .parallax-fullscreen {
+    height: 50vh;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 5. RESPONSIVE                                */
+/* -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .grid-block {
+    grid-template-columns: 1fr; /* Stack vertically on mobile */
+    gap: 2rem;
+  }
+  
+  .nav a {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
 }

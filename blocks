@@ -1,0 +1,121 @@
+
+    <div class="block grid-block">
+  <div class="text-content">
+    <h2>Project Name</h2>
+    <p>Description of the project goes here. This is the text on the left side.</p>
+    <a href="#" class="btn">View Details</a>
+  </div>
+  
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="path/to/image1.jpg" alt="Slide 1">
+      <img src="path/to/image2.jpg" alt="Slide 2">
+      <img src="path/to/image3.jpg" alt="Slide 3">
+    </div>
+    <div class="carousel-nav"></div>
+  </div>
+</div>
+
+    <div class="block grid-block reverse">
+  <div class="text-content">
+    <h2>Another Project</h2>
+    <p>This text appears on the right, and the carousel appears on the left.</p>
+  </div>
+  
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="path/to/image1.jpg" alt="Slide 1">
+      <img src="path/to/image2.jpg" alt="Slide 2">
+    </div>
+    <div class="carousel-nav"></div>
+  </div>
+</div>
+
+<div class="block grid-block">
+  <div class="text-content">
+    <h2>Research Paper</h2>
+    <p>Read the full documentation regarding this case study.</p>
+    <a href="files/my-document.pdf" target="_blank" class="btn">Download PDF</a>
+  </div>
+  
+  <div class="pdf-preview">
+    <img src="images/pdf-cover.jpg" alt="PDF Cover">
+  </div>
+</div>
+
+<div class="block">
+  <div class="text-content" style="margin-bottom: 1rem;">
+    <h2>3D Concept</h2>
+    <p>Click and drag to rotate the model. Scroll to zoom.</p>
+  </div>
+
+  <model-viewer 
+    src="path/to/model.glb" 
+    alt="A 3D model" 
+    auto-rotate 
+    camera-controls 
+    shadow-intensity="1">
+  </model-viewer>
+</div>
+
+<div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
+  <h2>Simple Text Block</h2>
+  <p>Sometimes you just need a paragraph of text centered in the middle of the screen without any images.</p>
+</div>
+
+<div class="block">
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="path/to/wide1.jpg" alt="Wide 1">
+      <img src="path/to/wide2.jpg" alt="Wide 2">
+    </div>
+    <div class="carousel-nav"></div>
+  </div>
+</div>
+
+<div class="block grid-block">
+  
+  <div class="text-content">
+    <h2>The Prototype</h2>
+    <p>
+      Here is a fully interactive 3D render of the concept. 
+      You can rotate, zoom, and pan around the object to see the details.
+    </p>
+    <div class="tags">
+      <span style="background:var(--accent); color:white; padding:4px 10px; border-radius:15px; font-size:0.8rem;">Blender</span>
+      <span style="border:1px solid var(--text); padding:3px 10px; border-radius:15px; font-size:0.8rem;">GLB</span>
+    </div>
+  </div>
+
+  <model-viewer 
+    src="path/to/model.glb" 
+    alt="A 3D model of a prototype"
+    auto-rotate 
+    camera-controls 
+    shadow-intensity="1"
+    style="background-color: #f0f0f0; border-radius: 12px;">
+  </model-viewer>
+
+</div>
+
+<div class="block grid-block">
+  
+  <model-viewer 
+    src="path/to/another-model.glb" 
+    alt="A 3D sculpture"
+    camera-controls 
+    shadow-intensity="1"
+    interaction-prompt="auto"
+    style="background-color: #e8e8e8; border-radius: 12px;">
+  </model-viewer>
+
+  <div class="text-content">
+    <h2>Architectural View</h2>
+    <p>
+      This model demonstrates the spatial relationship between the core 
+      structure and the surrounding environment. 
+    </p>
+    <a href="#" class="btn">Download Assets</a>
+  </div>
+
+</div>

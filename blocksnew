@@ -1,0 +1,66 @@
+<div class="block grid-block">
+  <div class="text-content">
+    <h2>3D Prototype</h2>
+    <p>Interactive 3D allows users to engage with your work from every angle. Use .glb files for the best performance.</p>
+  </div>
+  <model-viewer src="assets/model.glb" auto-rotate camera-controls shadow-intensity="1" loading="lazy"></model-viewer>
+</div>
+
+<div class="block grid-block">
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="img1.jpg" alt="Slide 1">
+      <img src="img2.jpg" alt="Slide 2">
+    </div>
+    <div class="carousel-nav"></div>
+  </div>
+  <div class="text-content">
+    <h2>Project Development</h2>
+    <p>This carousel automatically initializes thanks to the modular logic in the app.js file.</p>
+  </div>
+</div>
+
+<div class="block grid-block">
+  <div class="text-content">
+    <h2>Technical Documentation</h2>
+    <p>Download the full research paper or view the quick-start guide below.</p>
+    <a href="docs/file.pdf" class="btn" download>Download PDF</a>
+  </div>
+  <div class="pdf-preview">
+    <img src="thumbnails/pdf-cover.jpg" alt="PDF Cover">
+  </div>
+</div>
+
+<div class="block text-content" style="text-align: center; max-width: 800px; margin: 4rem auto;">
+  <h1 style="font-size: 3.5rem;">Creative Engineering.</h1>
+  <p style="font-size: 1.2rem;">Building digital bridges between 3D visualization and functional web design.</p>
+</div>
+
+<div class="block">
+  <h2 style="text-align: center; margin-bottom: 2rem;">Capabilities</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+    <div style="background: white; padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #eee;">
+      <strong>Modeling</strong>
+    </div>
+    <div style="background: white; padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #eee;">
+      <strong>Rendering</strong>
+    </div>
+    <div style="background: white; padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid #eee;">
+      <strong>Development</strong>
+    </div>
+  </div>
+</div>
+
+<div class="block grid-block">
+  <div class="text-content">
+    <h2>Let's Collaborate</h2>
+    <p>I'm currently looking for new opportunities. My inbox is always open.</p>
+  </div>
+  <form class="contact-form">
+    <div class="form-group"><label>Name</label><input type="text" required></div>
+    <div class="form-group"><label>Email</label><input type="email" required></div>
+    <div class="form-group"><label>Message</label><textarea rows="4"></textarea></div>
+    <button type="submit" class="btn" style="width: 100%; border:none; cursor:pointer;">Send</button>
+  </form>
+</div>
+

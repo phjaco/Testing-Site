@@ -1,110 +1,191 @@
-const content = document.getElementById("content");
+/**
+ * PORTFOLIO CORE ENGINE
+ */
 
-/* ---------------- PAGE CACHE ---------------- */
+const PROJECT_ORDER = ['project-alpha', 'project-beta', 'project-gamma', 'project-delta'];
 
-const pageCache = new Map();
+const DISPLAY_NAMES = {
+    'project-alpha': 'Formula Uprights',
+    'project-beta': 'Alpha Deep Dive',
+    'project-gamma': 'WebGL Textures',
+    'project-delta': 'Final Concept'
+};
 
-async function fetchPage(url) {
-  if (pageCache.has(url)) return pageCache.get(url);
+const Router = {
+    init() {
+        window.addEventListener('hashchange', () => this.handleRoute());
+        this.handleRoute();
+        this.initGlobalEvents();
+    },
 
-  const response = await fetch(url);
-  const html = await response.text();
-  pageCache.set(url, html);
-  return html;
-}
+    handleRoute() {
+        const id = window.location.hash.substring(1) || 'home';
+        this.showPage(id);
+    },
 
-/* ---------------- LOAD PAGE ---------------- */
+    showPage(id) {
+        const pages = document.querySelectorAll('.page');
+        let targetFound = false;
 
-async function loadPage(url, pushState = true) {
-  const html = await fetchPage(url);
+        pages.forEach(page => {
+            const isActive = page.id === id;
+            page.classList.toggle('active', isActive);
+            if (isActive) targetFound = true;
+        });
 
-  const temp = document.createElement("div");
-  temp.innerHTML = html;
+        if (!targetFound) {
+            const home = document.getElementById('home');
+            if (home) home.classList.add('active');
+        }
 
-  const newPage = temp.querySelector(".page");
-  if (!newPage) return;
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        
+        const bar = document.getElementById('global-project-taskbar');
+        if (bar) bar.classList.remove('expanded');
 
-  content.replaceChildren(newPage);
+        this.updateNav(id);
+        this.handleTaskbar(id);
+        
+        UIComponents.initCarousels();
+        UIComponents.initModelMaterials();
+    },
 
-  requestAnimationFrame(() => {
-    newPage.classList.add("page-loaded");
-    updateParallax();     // re-init parallax
-    initCarousels();      // ✅ INIT CAROUSELS HERE
-  });
+    updateNav(id) {
+        document.querySelectorAll('.nav a').forEach(a => {
+            const href = a.getAttribute('href').replace('#', '');
+            a.classList.toggle('active', href === id);
+        });
+    },
 
-  if (pushState) history.pushState(null, "", url);
-}
+    handleTaskbar(id) {
+        const isProject = PROJECT_ORDER.includes(id);
+        document.body.classList.toggle('in-project', isProject);
+        
+        if (isProject) {
+            this.renderTaskbarButtons(id);
+        }
+    },
 
-/* ---------------- NAVIGATION ---------------- */
+    renderTaskbarButtons(currentId) {
+        const container = document.getElementById('taskbar-content');
+        if (!container) return;
 
-document.addEventListener("click", e => {
-  const link = e.target.closest("a[data-link]");
-  if (!link) return;
+        const currentIndex = PROJECT_ORDER.indexOf(currentId);
+        container.innerHTML = '';
 
-  e.preventDefault();
-  loadPage(link.getAttribute("href"));
-});
+        const getName = (id) => DISPLAY_NAMES[id] || id.replace('project-', '').replace(/-/g, ' ').toUpperCase();
+        
+        const createBtn = (label, targetId, isNext = false) => {
+            const btn = document.createElement('button');
+            btn.className = isNext ? 'task-item next-task' : 'task-item';
+            btn.innerHTML = label;
+            btn.onclick = (e) => {
+                e.stopPropagation();
+                window.location.hash = targetId;
+            };
+            return btn;
+        };
 
-window.addEventListener("popstate", () => {
-  loadPage(location.pathname, false);
-});
+        if (currentIndex > 0) {
+            container.appendChild(createBtn(`← ${getName(PROJECT_ORDER[currentIndex - 1])}`, PROJECT_ORDER[currentIndex - 1]));
+        } else {
+            container.appendChild(createBtn('All Projects', 'projects'));
+        }
 
-/* ---------------- PARALLAX ---------------- */
+        if (currentIndex < PROJECT_ORDER.length - 1) {
+            container.appendChild(createBtn(`${getName(PROJECT_ORDER[currentIndex + 1])} →`, PROJECT_ORDER[currentIndex + 1], true));
+        } else {
+            container.appendChild(createBtn('Back to Gallery', 'projects'));
+        }
+    },
 
-function updateParallax() {
-  const blocks = document.querySelectorAll(".block");
-  const vh = window.innerHeight;
 
-  blocks.forEach(block => {
-    const rect = block.getBoundingClientRect();
-    const offset = rect.top + rect.height / 2 - vh / 2;
-    const translateY = offset * -0.15;
-    block.style.transform = `translateY(${translateY}px)`;
-  });
-}
-
-window.addEventListener("scroll", updateParallax, { passive: true });
-window.addEventListener("resize", updateParallax);
-
-/* ---------------- CAROUSELS ---------------- */
-
-function initCarousels() {
-  document.querySelectorAll("[data-carousel]").forEach(carousel => {
-    if (carousel.dataset.ready) return;
-    carousel.dataset.ready = "true";
-
-    const track = carousel.querySelector(".carousel-track");
-    const images = [...track.children];
-    const dotsContainer = carousel.querySelector(".carousel-dots");
-
-    let index = 0;
-
-    images.forEach((_, i) => {
-      const dot = document.createElement("button");
-      if (i === 0) dot.classList.add("active");
-
-      dot.addEventListener("click", () => {
-        index = i;
-        update();
-      });
-
-      dotsContainer.appendChild(dot);
-    });
-
-    const dots = [...dotsContainer.children];
-
-    function update() {
-      track.style.transform = `translateX(-${index * 100}%)`;
-      dots.forEach(d => d.classList.remove("active"));
-      dots[index].classList.add("active");
+    
+    initGlobalEvents() {
+        const scrollTopBtn = document.getElementById('scroll-top');
+        if (scrollTopBtn) {
+            window.addEventListener('scroll', () => {
+                scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+            });
+            scrollTopBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
+};
 
-    update();
+/**
+ * COPY TO CLIPBOARD UTILITY
+ */
+function copyToClipboard(button) {
+  const textToCopy = button.getAttribute('data-copy');
+  const originalText = button.innerText;
+
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    // Visual Feedback
+    button.innerText = "Copied!";
+    button.style.background = "#28a745"; // Success green
+    button.style.border = "#28a745"; // Success green
+    button.style.color = "#FFFFFF";
+    
+    
+    // Reset button after 2 seconds
+    setTimeout(() => {
+      button.innerText = originalText;
+      button.style.background = ""; // Reverts to CSS var(--accent)
+          button.style.border = "";
+    button.style.color = "";
+    }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy: ', err);
   });
 }
 
-/* ---------------- INIT ---------------- */
+const UIComponents = {
+    initCarousels() {
+        document.querySelectorAll('.carousel').forEach(carousel => {
+            if (carousel.dataset.initialized) return;
+            carousel.dataset.initialized = "true";
+            const track = carousel.querySelector('.carousel-track');
+            const nav = carousel.querySelector('.carousel-nav');
+            if (!track || !nav) return;
 
-loadPage(location.pathname === "/" ? "/home.html" : location.pathname, false);
+            Array.from(track.children).forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.className = `dot ${i === 0 ? 'active' : ''}`;
+                dot.onclick = (e) => {
+                    e.stopPropagation();
+                    track.style.transform = `translateX(-${i * 100}%)`;
+                    nav.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+                    dot.classList.add('active');
+                };
+                nav.appendChild(dot);
+            });
+        });
+    },
 
-["/home.html", "/projects.html", "/contact.html"].forEach(fetchPage);
+    // initModelMaterials() {
+    //     // Fix: Added safety checks to prevent breaking the viewer
+    //     document.querySelectorAll('model-viewer').forEach(viewer => {
+    //         const applyMaterials = () => {
+    //             const model = viewer.model;
+    //             if (!model || !model.materials) return;
+                
+    //             model.materials.forEach(mat => {
+    //                 if (mat.pbrMetallicRoughness) {
+    //                     mat.pbrMetallicRoughness.setRoughnessFactor(0.25);
+    //                     mat.pbrMetallicRoughness.setMetallicFactor(1);
+    //                 }
+    //             });
+    //         };
+
+    //         // If already loaded, apply; otherwise wait for load event
+    //         if (viewer.loaded) {
+    //             applyMaterials();
+    //         } else {
+    //             viewer.addEventListener('load', applyMaterials);
+    //         }
+    //     });
+    // }
+};
+
+document.addEventListener('DOMContentLoaded', () => Router.init());
+window.showPage = (id) => window.location.hash = id;

@@ -1,351 +1,682 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Modular Design</title>
 
-<style>
-:root {
-  --bg: #F4E1C1;
-  --text: #7B5E57;
-  --accent: #D4A373;
-  --accent-light: #E5C48D;
-}
+  <link rel="stylesheet" href="style.css">
 
-/* ---------------- RESET ---------------- */
-
-html, body {
-  margin: 0;
-  height: 100%;
-  background: var(--bg);
-  color: var(--text);
-  font-family: system-ui, sans-serif;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-/* ---------------- NAV ---------------- */
-
-.nav {
-  position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-}
-
-.nav a {
-  color: var(--accent);
-  text-decoration: none;
-  margin: 0 1rem;
-  position: relative;
-}
-
-.nav a::after {
-  content: "";
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--accent-light);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s ease;
-}
-
-.nav a:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-/* ---------------- CONTENT ---------------- */
-
-#content {
-  padding: 6rem 2rem;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-}
-
-/* ---------------- BLOCK SYSTEM ---------------- */
-
-.block {
-  padding: 3rem 0;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.block.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.block:last-child {
-  border-bottom: none;
-}
-
-/* Two-column layout */
-.block.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
-  align-items: center;
-}
-
-.block.two-col.reverse {
-  direction: rtl;
-}
-.block.two-col.reverse > * {
-  direction: ltr;
-}
-
-/* Full-width layout */
-.block.full {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .block.two-col {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ---------------- TEXT ---------------- */
-
-.text h2 {
-  margin-top: 0;
-}
-
-.text p {
-  line-height: 1.6;
-}
-
-/* ---------------- IMAGES ---------------- */
-
-.image {
-  text-align: center;
-}
-
-.image img {
-  max-width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
-}
-
-/* Optional smaller image */
-.img-small img {
-  max-width: 280px;
-}
-
-/* ---------------- CAROUSEL ---------------- */
-
-.carousel {
-  position: relative;
-  max-width: 420px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease;
-}
-
-.carousel-track img {
-  min-width: 100%;
-  border-radius: 10px;
-}
-
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.6rem;
-  margin-top: 0.75rem;
-}
-
-.carousel-dots button {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(0,0,0,0.3);
-  cursor: pointer;
-}
-
-.carousel-dots button.active {
-  background: var(--accent);
-  transform: scale(1.3);
-}
-</style>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </head>
-
 <body>
 
-<nav class="nav">
-  <a href="#home" data-link>Home</a>
-  <a href="#projects" data-link>Projects</a>
-  <a href="#contact" data-link>Contact</a>
-</nav>
-
-<main id="content">
-
-<!-- ================= HOME ================= -->
-
-<section id="home" class="page active">
-
-  <div class="block two-col visible">
-    <div class="text">
-      <h2>Welcome</h2>
-      <p>This portfolio highlights selected projects and design work.</p>
-    </div>
-    <div class="image img-small">
-      <img src="/images/home.png">
-    </div>
+  <div class="nav-container">
+    <nav class="nav">
+      <a href="#home">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </div>
 
-</section>
+  <main id="content">
 
-<!-- ================= PROJECTS ================= -->
 
-<section id="projects" class="page">
+<!-- ## HOME SECTION -->
 
-  <!-- Text + Image -->
-  <div class="block two-col">
-    <div class="text">
-      <h2>Project One</h2>
-      <p>A clean two-column layout with a single image.</p>
-    </div>
-    <div class="image">
-      <img src="/images/proj/proj1.png">
+    <section id="home" class="page active">
+
+
+<!-- Edge to Edge Fullscreen -->
+<div class="parallax-fullscreen">
+  <div class="parallax-bg-full" style="background-image: url('/contents/home/parallax_fsaecar.jpg')"></div>
+  <div class="parallax-overlay-full">
+    <div class="text-content" style="text-align: center; color: white;">
+      <h2 style="color: white; font-size: 3rem; letter-spacing: 4px;">
+        Patrick Jacobs' Engineering Portfolio
+      </h2>
     </div>
   </div>
+</div>
 
-  <!-- Text + Carousel -->
-  <div class="block two-col reverse">
-    <div class="text">
-      <h2>Project Gallery</h2>
-      <p>This project uses a carousel to show multiple views.</p>
-    </div>
 
-    <div class="carousel" data-carousel>
-      <div class="carousel-track">
-        <img src="/images/proj/proj1-1.png">
-        <img src="/images/proj/proj1-2.png">
-        <img src="/images/proj/proj1-3.png">
-        <img src="/images/proj/proj1-4.png">
-        <img src="/images/proj/proj1-5.png">
+        </section>
+
+
+<!-- ## PROJECTS SECTION -->
+
+
+    <section id="projects" class="page">
+
+
+      <!-- Project Cards -->
+      <div class="block" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <div class="project-card" onclick="showPage('project-alpha')">
+          <img src="contents/projects/uprights/fea_1_stress.png" alt="FSAE Uprights">
+          <div class="card-overlay"><span>FSAE Uprights</span></div>
+        </div>
+        <div class="project-card" onclick="showPage('project-beta')">
+          <img src="thumb2.jpg" alt="Project 2">
+          <div class="card-overlay"><span>Robotics</span></div>
+        </div>
+        <div class="project-card" onclick="showPage('project-gamma')">
+          <img src="thumb3.jpg" alt="Project 3">
+          <div class="card-overlay"><span>View Project</span></div>
+        </div>
       </div>
-      <div class="carousel-dots"></div>
-    </div>
-  </div>
 
-  <!-- Full-width carousel -->
-  <div class="block full">
-    <div class="carousel" data-carousel>
-      <div class="carousel-track">
-        <img src="/images/proj/proj2-1.png">
-        <img src="/images/proj/proj2-2.png">
-        <img src="/images/proj/proj2-3.png">
+      <!-- Project Redirect - Left -->
+      <div class="block grid-block project-redirect" onclick="showPage('project-alpha')">
+        <div class="text-content">
+          <h3>Project Alpha</h3>
+          <p>A deep dive into modular architecture and 3D systems.</p>
+        </div>
+        <div class="redirect-image-container">
+          <img src="large-thumb.jpg" alt="Project Alpha">
+        </div>
       </div>
-      <div class="carousel-dots"></div>
+      
+      <!-- Project Redirect - Right -->
+      <div class="block grid-block project-redirect" onclick="showPage('project-beta')">
+        <div class="redirect-image-container">
+          <img src="large-thumb-2.jpg" alt="Project Beta">
+        </div>
+        <div class="text-content">
+          <h3>Project Beta</h3>
+          <p>Exploring high-fidelity textures and lighting in WebGL.</p>
+        </div>
+      </div>
+
+
+        </section>
+
+
+<!-- ## RESUME SECTION -->
+
+
+    <section id="resume" class="page">
+
+
+        <div class="block" style="text-align: center; max-width: 600px; margin: 0 auto 6rem auto;">
+  <div class="text-content">
+    <h2>Resume</h2>
+    <p>View and download my resume below.</p>
+  </div>
+  
+  <div class="pdf-preview" style="margin: 2rem 0;">
+    <img src="/contents/resume/resume.png" alt="PDF Preview" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+  </div>
+
+  <a href="/contents/resume/resume.pdf" class="btn" download>Download PDF</a>
+</div>
+
+
+        </section>
+
+
+<!-- ## CONTACT SECTION -->
+
+
+    <section id="contact" class="page">
+
+      <div class="block social-contact" style="text-align: center; max-width: 600px; margin: 0 auto; height: 0 0;">
+  <div class="text-content">
+    <h2 style='color: #0077B5;'>Let's Connect</h2>
+    <p>Connect with me on via email,</p>
+  </div>
+
+  <div class="block text-content" style="text-align: center; height: 0 0; margin: 1rem auto;">
+    <a 
+      class="btn copy-btn" target="_blank"
+      data-copy="phjacobs927@gmail.com" 
+      onclick="copyToClipboard(this)">
+      Copy Email Address
+  </a>
+  </div>
+<div style="height: 0 0;">
+  <p>or through my LinkedIn.</p>
+</div>
+
+  <div>
+    <a href="https://www.linkedin.com/in/p-h-jacobs/" class="btn linkedin-btn" target="_blank">
+      Connect on LinkedIn
+    </a>
+  </div>
+
+  <!-- <div class="social-row">
+    <a href="https://instagram.com/yourprofile" class="btn secondary-btn" target="_blank">Instagram</a>
+    <a href="https://youtube.com/yourchannel" class="btn secondary-btn" target="_blank">YouTube</a>
+  </div>
+</div> -->
+
+        </section>
+
+
+
+    <!-- ACTUAL PROJECT PAGES -->
+
+
+
+    <!-- FRONT & REAR UPRIGHTS -->
+<section id="project-alpha" class="page">
+  <div class="block">
+     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
+  </div>
+
+  <div class="block text-content" style="text-align: center; margin-bottom: 2rem;">
+    <h1>Formula Student Uprights</h1>
+    <h3>A collection of documentation for the creation of an FSAE car's front and rear uprights.</h3>
+    <p style="font-size: 1.1rem; margin-top: 1rem;">
+      This page is intended to both chronicle the experience I gained throughout this design process and also 
+     serve as a resource for future team members who take on this task.
+  </div>
+
+  
+<!-- 3D Model Viewer - Full Page -->
+<div class="block">
+  <div class="text-content" style="margin-bottom: 1rem;">
+
+  </div>
+
+  <model-viewer style="height: 600px;" 
+    src="\contents\projects\uprights\fupright.glb" 
+    alt="A 3D model" 
+    auto-rotate 
+    camera-controls 
+    shadow-intensity="1">
+  </model-viewer>
+</div>
+
+<div class="block grid-block table-layout">
+  <div class="text-content">
+    <h1>Project Sources & References</h1>
+    <p>
+      The initial and most important part of this design process was the research phase.
+      I primarily stuck to FSAE related documentation for the creation of a load case,
+      as well as reviewing the documents of my team's previous years to build my understanding.
+      In total, somewhere between 500-700 pages of reading was involved in this step,
+      and what I have listed here is what I found most useful of what I read.
+    </p>
+    <p>
+      I also spent time reviewing and understanding the role of an upright in the context of a 
+      car's suspension system, as well as the manufacturing constraints of the project before I jumped in.
+    </p>
+  </div>
+
+
+  <!-- Table -->
+  <div class="table-container">
+    <table class="link-table">
+      <thead>
+        <tr>
+          <th>Abbreviated Title</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>VT Master's Thesis: Design & Optimization of an FSAE Upright</td>
+          <td><a href="https://vtechworks.lib.vt.edu/server/api/core/bitstreams/c4a86dbf-94e8-4655-ae08-f582ee4cecf5/content" target="_blank" class="btn-small">Access</a></td>
+        </tr>
+        <tr>
+          <td>IOP Research: Design & Optimization of an FSAE Upright</td>
+          <td><a href="https://iopscience.iop.org/article/10.1088/1757-899X/1166/1/012043/pdf" target="_blank" class="btn-small">Access</a></td>
+        </tr>
+        <tr>
+          <td>JCU Research: On the Design of Rear Uprights for a Race Car</td>
+          <td><a href="https://researchonline.jcu.edu.au/64497/1/resm2020.198me0608.pdf" target="_blank" class="btn-small">Access</a></td>
+        </tr>
+        <tr>
+          <td>Politecnico Di Torino: Design of the Upright Assembly of a Formula Student Prototype</td>
+          <td><a href="https://webthesis.biblio.polito.it/27481/1/tesi.pdf" target="_blank" class="btn-small">Access</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  <!-- Centered Text Block -->
+<div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
+  <h1>Load Case and Blocking Out</h1>
+  <p>
+    The next step in this project was the creation of several load cases. I put together a rudimentary script to find 
+    the theoretical loads on the upright when braking while cornering, which is expected to place the part under the greatest stress. 
+    The output of this script could've been used, however another load case was developed using a lap simulation another team member 
+    constructed. The most conservative numbers were used and it was decided a safety factor minimum of near 3 would be targetted.
+    This ensures that even if our load case is somehow greater than our greatest prediction, the part should still be relatively safe.
+  </p>
+</div>
+
+<!-- Right Text, Left Carousel -->
+<div class="block grid-block">
+  
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="contents/projects/uprights/full_front_upright_block.png" alt="Blocked Out Upright">
+      <img src="contents/projects/uprights/full_front_upright.png" alt="Full Front Upright">
+      <img src="contents/projects/uprights/top_outboard_planar.png" alt="Top Outboard Planar View">
+      <img src="contents/projects/uprights/rough_shape_1.png" alt="Early Rough Shape">
+    </div>
+    <div class="carousel-nav"></div>
+  </div>
+  
+  <div class="text-content">
+    <h3>Block Design</h3>
+    <p>Getting into the real CAD of the upright first focuses on blocking out the rough shape, with inspiration from past years,
+       while fulfilling some of the desired features. Each outboard point must have a specific width that aligns with the uniball
+      cup so the A arms can be connected. Additionally, it is desirable for the top outboard point to be both attached
+      by an adjustable bracket, so that the camber can be adjusted, and also be aligned so the bolt attachment is parallel to the
+    plane of the A-arm. This allows the uniball cup to have a more evenly distributed load and range of motion. </p>
+    </div>
+</div>
+
+<!-- Parallax Fullscreen Section -->
+<div class="block parallax-container" style="box-shadow: 0 10px 25px rgba(0,0,0,0.1);;">
+  <div class="parallax-bg" style="background-image: url('contents/projects/uprights/section_view_suspension.png');"></div>
+  <div class="parallax-overlay" style="background: none;">
+    <div class="text-content" style="text-align: center;">
     </div>
   </div>
+</div>
+
+<!-- Left Text, Right Carousel -->
+<div class="block grid-block">
+  <div class="text-content">
+    <h3>Adjustable Ackermann Brackets</h3>
+    <p>The most unique of the desired features is the ability to adjust the ackermann angle by using alternative attachment brackets
+      for the tie rod. Two designs were considered, one using a key and slot method to align the bracket and prevent it from
+      unseating, and another using two plates that fit into slots on the top and bottom of an attachment point that branches off the
+      upright's main body. The key and slot method was preferred because the motion of the tie rod places the bolt in tension rather than shear.
+    </p>
+</div>
+
+  
+<div class="carousel">
+    <div class="carousel-track">
+      <img src="/contents/projects/uprights/ackermann_plate_example_1.png" alt="Ackermann Dual Plates Design">
+      <img src="/contents/projects/uprights/ackermann_plate_example_2.png" alt="Ackermann Dual Plates Design">
+      <img src="/contents/projects/uprights/ackermann_slot_example_1.png" alt="Ackermann Key and Slot Design">
+      <img src="/contents/projects/uprights/ackermann_slot_example_2.png" alt="Ackermann Key and Slot Design">
+    </div>
+    <div class="carousel-nav"></div>
+  </div>
+</div>
+</div>
+
+<div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
+  <h1>Finite Element Analysis</h1>
+  <p>
+    With a load case finalized and having drawn an initial design, a simulation was created applying a remote force
+    to the outboard attachment points, fixing the body at the wheel's bearing interfaces, and continually running, tweaking,
+    and adding material until a reasonable safety factor was obtained. Following 100+ iterations of this process, the design 
+    was refined into a form similar to the one in the model viewer above.
+  </p>
+</div>
+
+<!-- Wide Image Carousel -->
+<div class="block" style="justify-content: center;">
+  <div class="carousel" style="height: 800px; width: 800px; justify-self: center;">
+    <div class="carousel-track" style='height: 800px; width: 800px;'>
+      <img src="contents/projects/uprights/fea_front_model.png" alt="FEA Front Model">
+      <img src="contents/projects/uprights/fea_full_model.png" alt="FEA Full Model">
+      <img src="contents/projects/uprights/fea_loadcase.png" alt="FEA Load Case">
+      <img src="contents/projects/uprights/fea_1_stress.png" alt="FEA Stress Distribution">
+      <img src="contents/projects/uprights/fea_1_sf.png" alt="FEA Safety Factor">
+    </div>
+    <div class="carousel-nav"></div>
+  </div>
+</div>
+
+<div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
+  <h1>Manufacturability & Final Notes</h1>
+  <p>
+    The design was continuously monitored to ensure it could be manufactured using a 5-axis CNC mill, generally
+    keeping to a .3" minimum fillet radius to ensure a 0.5" ball end mill could be used, and design decisions were
+    made in order to reduce the number of operations required to machine the part by sacrificing weight savings to keep some 
+    surfaces planar. The final safety factor fell somewhere around 2.9, which was determined to be enough that the part isn't
+    expected to fail. Based on <a href="https://ntrs.nasa.gov/api/citations/19660019791/downloads/19660019791.pdf" style="color: var(--accent);">
+      the fatigue life of aluminum 6061-T6</a> (page 14, R = -1 is most conservative) and assuming our load case is in the right ballpark, 
+    the lifetime would be somewhere between 100,000 and 1,000,000 cycles of the absolute worst case loading condition the
+    upright is expected to ever face.  
+  </p>
+</div>
 
 </section>
 
-<!-- ================= CONTACT ================= -->
 
-<section id="contact" class="page">
+<!-- SOMETHING ELSE -->
+<section id="project-beta" class="page">
+  <div class="block">
+     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
+  </div>
 
-  <div class="block full">
-    <div class="text">
-      <h2>Contact</h2>
-      <p>Email: you@example.com</p>
+  <div class="block text-content" style="text-align: center;">
+    <h1>Project Alpha: Deep Dive</h1>
+    <p>A comprehensive look at the engineering and design process.</p>
+  </div>
+
+  <div class="block">
+    <model-viewer src="/contents/projects/fupright.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
+  </div>
+</section>
+
+
+<!-- 3RD PROJECT -->
+<section id="project-gamma" class="page">
+  <div class="block">
+     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
+  </div>
+
+  <div class="block text-content" style="text-align: center;">
+    <h1>Project Alpha: Deep Dive</h1>
+    <p>A comprehensive look at the engineering and design process.</p>
+  </div>
+
+  <div class="block">
+    <model-viewer src="high-res-model.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
+  </div>
+</section>
+
+<!-- 3RD PROJECT -->
+<section id="project-delta" class="page">
+  <div class="block">
+     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
+  </div>
+
+  <div class="block text-content" style="text-align: center;">
+    <h1>Project Alpha: Deep Dive</h1>
+    <p>A comprehensive look at the engineering and design process.</p>
+  </div>
+
+  <div class="block">
+    <model-viewer src="high-res-model.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
+  </div>
+</section>
+
+
+
+
+
+<!-- DEV BLOCKS -->
+
+<section id="DevBlocks" class="page" style="padding-top: 100px;">
+  
+  
+  <div class="block" style="border-bottom: 2px solid var(--accent); margin-bottom: 4rem;">
+    <h1>DevBlocks Storage</h1>
+    <p>Copy and paste blocks from here into your active pages.</p>
+  </div>
+
+<!-- Project Cards - Gallery Style -->
+  <div class="block" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+    <div class="project-card"><div class="card-overlay"><span>Project 1</span></div></div>
+    <div class="project-card"><div class="card-overlay"><span>Project 2</span></div></div>
+    <div class="project-card"><div class="card-overlay"><span>Project 3</span></div></div>
+  </div>
+
+
+<!-- Project Redirect - Left -->
+  <div class="block grid-block project-redirect" onclick="showPage('project-id-here')">
+    <div class="text-content">
+      <h3>Title Left</h3>
+      <p>Description...</p>
+    </div>
+    <div class="redirect-image-container">
+      <img src="your-project-thumbnail.jpg" alt="Project Name">
     </div>
   </div>
 
+
+  <!-- Project Redirect - Right -->
+<div class="block grid-block project-redirect" onclick="showPage('project-id-here')">
+  <div class="redirect-image-container">
+    <img src="your-project-thumbnail.jpg" alt="Project Name">
+  </div>
+  <div class="text-content">
+    <h3>Project Title</h3>
+    <p>A brief summary of the intensive project. This block acts as a portal to the full case study section.</p>
+    <span class="view-link">View Case Study →</span>
+  </div>
+
+</div>
+
+
+<!-- Parallax Fullscreen Section -->
+<div class="block parallax-container">
+  <div class="parallax-bg" style="background-image: url('your-large-image.jpg');"></div>
+  <div class="parallax-overlay">
+    <div class="text-content" style="text-align: center; color: white;">
+      <h2 style="color: white;">A Deeper Look</h2>
+      <p style="color: rgba(255,255,255,0.9);">This section reveals a full-screen background as you scroll past.</p>
+      <a href="#projects" class="btn" style="background: white; color: var(--accent);">See Work</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edge to Edge Fullscreen -->
+<div class="parallax-fullscreen">
+  <div class="parallax-bg-full" style="background-image: url('assets/your-image-here.jpg');"></div>
+  <div class="parallax-overlay-full">
+    <div class="text-content" style="text-align: center; color: white;">
+      <h2 style="color: white; font-size: 3rem; text-transform: uppercase; letter-spacing: 4px;">
+        Project Spotlight
+      </h2>
+    </div>
+  </div>
+</div>
+
+
+<!-- Left Text, Right Carousel -->
+<div class="block grid-block">
+  <div class="text-content">
+    <h2>Project Name</h2>
+    <p>Description of the project goes here. This is the text on the left side.</p>
+    <a href="#" class="btn">View Details</a>
+</div>
+
+  
+<div class="carousel">
+    <div class="carousel-track">
+      <img src="path/to/image1.jpg" alt="Slide 1">
+      <img src="path/to/image2.jpg" alt="Slide 2">
+      <img src="path/to/image3.jpg" alt="Slide 3">
+    </div>
+    <div class="carousel-nav"></div>
+  </div>
+</div>
+
+
+<!-- Right Text, Left Carousel -->
+<div class="block grid-block">
+  
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="project-image-1.jpg" alt="Gallery Image 1">
+      <img src="project-image-2.jpg" alt="Gallery Image 2">
+      <img src="project-image-3.jpg" alt="Gallery Image 3">
+    </div>
+    <div class="carousel-nav"></div>
+  </div>
+
+  <div class="text-content">
+    <h3>Detailed Gallery</h3>
+    <p>This carousel allows users to swipe through multiple project views. It is purely for display and does not redirect the page.</p>
+    <a href="#" class="btn">View Details</a>
+  </div>
+
+</div>
+
+
+<!-- PDF Download Section -->
+<div class="block grid-block">
+  <div class="text-content">
+    <h2>Research Paper</h2>
+    <p>Read the full documentation regarding this case study.</p>
+    <a href="files/my-document.pdf" target="_blank" class="btn">Download PDF</a>
+  </div>
+  
+  <div class="pdf-preview">
+    <img src="images/pdf-cover.jpg" alt="PDF Cover">
+  </div>
+</div>
+
+<!-- 3D Model Viewer - Full Page -->
+<div class="block">
+  <div class="text-content" style="margin-bottom: 1rem;">
+    <h2>3D Concept</h2>
+    <p>Click and drag to rotate the model. Scroll to zoom.</p>
+  </div>
+
+  <model-viewer 
+    src="/contents/home/fupright.glb" 
+    alt="A 3D model" 
+    auto-rotate 
+    camera-controls 
+    shadow-intensity="1">
+  </model-viewer>
+</div>
+
+<!-- Centered Text Block -->
+<div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
+  <h2>Simple Text Block</h2>
+  <p>Sometimes you just need a paragraph of text centered in the middle of the screen without any images.</p>
+</div>
+
+
+<!-- Separator Block-->
+<hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 4rem 0;">
+
+<!-- Invisible Separator Block -->
+<div style="height: 6rem; width: 100%;"></div>
+
+<!-- Wide Image Carousel -->
+<div class="block">
+  <div class="carousel">
+    <div class="carousel-track">
+      <img src="path/to/wide1.jpg" alt="Wide 1">
+      <img src="path/to/wide2.jpg" alt="Wide 2">
+    </div>
+    <div class="carousel-nav"></div>
+  </div>
+</div>
+
+
+<!-- 3D Model Block - Model Right -->
+<div class="block grid-block">
+  
+  <div class="text-content">
+    <h2>The Prototype</h2>
+    <p>
+      Here is a fully interactive 3D render of the concept. 
+      You can rotate, zoom, and pan around the object to see the details.
+    </p>
+    <div class="tags">
+      <span style="background:var(--accent); color:white; padding:4px 10px; border-radius:15px; font-size:0.8rem;">Blender</span>
+      <span style="border:1px solid var(--text); padding:3px 10px; border-radius:15px; font-size:0.8rem;">GLB</span>
+    </div>
+  </div>
+
+  <model-viewer 
+    src="/contents/home/fupright.glb" 
+    alt="A 3D model of a prototype"
+    auto-rotate 
+    camera-controls 
+    shadow-intensity="1"
+    style="background-color: #f0f0f0; border-radius: 12px;">
+  </model-viewer>
+
+</div>
+
+
+<!-- 3D Model Block - Model Left -->
+<div class="block grid-block">
+  
+  <model-viewer 
+    src="path/to/another-model.glb" 
+    alt="A 3D sculpture"
+    camera-controls 
+    shadow-intensity="1"
+    interaction-prompt="auto"
+    style="background-color: #e8e8e8; border-radius: 12px;">
+  </model-viewer>
+
+  <div class="text-content">
+    <h2>Architectural View</h2>
+    <p>
+      This model demonstrates the spatial relationship between the core 
+      structure and the surrounding environment. 
+    </p>
+    <a href="#" class="btn">Download Assets</a>
+  </div>
+
+</div>
+
+<div class="block grid-block table-layout">
+  <div class="text-content">
+    <h2>Project Sources & References</h2>
+    <p>
+      The initial and most important part of this design process was the research phase.
+      I primarily stuck to FSAE related documentation for the creation of a load case,
+      as well as reviewing the documents of my team's previous years to build my understanding.
+      In total, somewhere between 500-700 pages of reading was involved in this step,
+      and what I have listed here is what I found most useful of what I read.
+    </p>
+    <p>
+      I also spent time reviewing and understanding the role of an upright in the context of a 
+      car's suspension system, as well as the manufacturing constraints of the project before I jumped in.
+    </p>
+  </div>
+
+
+  <!-- Table -->
+  <div class="table-container">
+    <table class="link-table">
+      <thead>
+        <tr>
+          <th>Abbreviated Title</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>VT Master's Thesis: Design & Optimization of an FSAE Upright</td>
+          <td><a href="https://vtechworks.lib.vt.edu/server/api/core/bitstreams/c4a86dbf-94e8-4655-ae08-f582ee4cecf5/content" target="_blank" class="btn-small">Access</a></td>
+        </tr>
+        <tr>
+          <td>IOP Research: Design & Optimization of an FSAE Upright</td>
+          <td><a href="https://iopscience.iop.org/article/10.1088/1757-899X/1166/1/012043/pdf" target="_blank" class="btn-small">Access</a></td>
+        </tr>
+        <tr>
+          <td>JCU Research: On the Design of Rear Uprights for a Race Car</td>
+          <td><a href="https://researchonline.jcu.edu.au/64497/1/resm2020.198me0608.pdf" target="_blank" class="btn-small">Access</a></td>
+        </tr>
+        <tr>
+          <td>Politecnico Di Torino: Design of the Upright Assembly of a Formula Student Prototype</td>
+          <td><a href="https://webthesis.biblio.polito.it/27481/1/tesi.pdf" target="_blank" class="btn-small">Access</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
 </section>
 
-</main>
+  </main>
 
-<script>
-const pages = document.querySelectorAll(".page");
-const links = document.querySelectorAll(".nav a");
+<div id="global-project-taskbar" class="project-taskbar">
+  <div class="taskbar-circle">
+    <span class="icon">＋</span>
+  </div>
+  <div class="taskbar-tabs" id="taskbar-content">
+    </div>
+</div>
 
-function showPage(id) {
-  pages.forEach(p => p.classList.remove("active"));
-  const page = document.getElementById(id);
-  page.classList.add("active");
+  <button id="scroll-top" aria-label="Scroll to Top">▴</button>
 
-  const blocks = page.querySelectorAll(".block");
-  blocks.forEach(b => b.classList.remove("visible"));
-  blocks.forEach((b, i) =>
-    setTimeout(() => b.classList.add("visible"), i * 150)
-  );
-
-  history.pushState(null, "", "#" + id);
-}
-
-links.forEach(link => {
-  link.addEventListener("click", e => {
-    e.preventDefault();
-    showPage(link.getAttribute("href").substring(1));
-  });
-});
-
-window.addEventListener("popstate", () => {
-  showPage(location.hash.substring(1) || "home");
-});
-
-/* -------- CAROUSELS -------- */
-
-function initCarousels() {
-  document.querySelectorAll("[data-carousel]").forEach(carousel => {
-    if (carousel.dataset.ready) return;
-    carousel.dataset.ready = "true";
-
-    const track = carousel.querySelector(".carousel-track");
-    const slides = [...track.children];
-    const dots = carousel.querySelector(".carousel-dots");
-    let index = 0;
-
-    slides.forEach((_, i) => {
-      const dot = document.createElement("button");
-      dot.onclick = () => {
-        index = i;
-        update();
-      };
-      dots.appendChild(dot);
-    });
-
-    function update() {
-      track.style.transform = `translateX(-${index * 100}%)`;
-      [...dots.children].forEach(d => d.classList.remove("active"));
-      dots.children[index].classList.add("active");
-    }
-
-    update();
-  });
-}
-
-initCarousels();
-</script>
+  <script src="app.js"></script>
 
 </body>
 </html>
