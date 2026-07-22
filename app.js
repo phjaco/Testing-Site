@@ -2,14 +2,31 @@
  * PORTFOLIO CORE ENGINE
  */
 
-const PROJECT_ORDER = ['project-alpha', 'project-beta', 'project-gamma', 'project-delta'];
+const PROJECT_ORDER = [
+    'fsae-uprights', 
+    'choked-flow', 
+    'clock-geartrain', 
+    'ebike',
+    'fluidsimver',
+    'chip-clip',
+    'magnetic-damping',
+    'mmn-surface-prep',
+    'frc-2023',
+    'frc-2022'
+    ];
 
 const DISPLAY_NAMES = {
-    'project-alpha': 'Formula Uprights',
-    'project-beta': 'Alpha Deep Dive',
-    'project-gamma': 'WebGL Textures',
-    'project-delta': 'Final Concept'
-};
+    'fsae-uprights': 'FSAE Uprights',
+    'choked-flow': 'Choked FLow Impulse',
+    'clock-geartrain': 'Clock Geartrain',
+    'ebike': 'Electric Bike',
+    'fluidsimver' : 'Fluid Sim. Verification',
+    'chip-clip' : 'Chip Clip',
+    'magnetic-damping' : 'Eddy Current Brakes',
+    'mmn-surface-prep' : 'MMN Surfaces',
+    'frc-2023' : "FRC '23",
+    'frc-2022' : "FRC '22",
+    };
 
 const Router = {
     init() {

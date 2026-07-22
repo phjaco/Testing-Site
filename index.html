@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio | Modular Design</title>
+  <title>Patrick Jacobs' Portfolio</title>
 
   <link rel="stylesheet" href="style.css">
 
@@ -15,7 +15,7 @@
     <nav class="nav">
       <a href="#home">Home</a>
       <a href="#projects">Projects</a>
-      <a href="#quickoverview">Quick Overview</a>
+      <a href="#highlights">Highlights</a>
       <a href="#resume">Resume</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -49,88 +49,177 @@
 
 
     <section id="projects" class="page">
+      <!-- Invisible Separator Block -->
+      <div style="height: 3rem; width: 100%;"></div>
+      <!-- Centered Text Block -->
+      <div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
+        <h2>Projects</h2>
+        <p>This is a collection of most projects I've worked on. For a quick, curated overview, please view the <a href="#highlights" style="color: var(--accent);text-decoration:none;font-weight: bold;">Highlights.</a></p>
+      </div>
 
+      <!-- Separator Block-->
+      <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 4rem 0;">
 
       <!-- Project Cards -->
-      <div class="block" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
-        <div class="project-card" onclick="showPage('project-alpha')">
-          <img src="contents/projects/uprights/fea_1_stress.png" alt="FSAE Uprights">
+      <div class="block" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 1.5rem;">
+        
+        <div class="project-card" onclick="showPage('fsae-uprights')">
+          <img src="contents/projects/uprights/fea_front_model.png" alt="FSAE Uprights">
           <div class="card-overlay"><span>FSAE Uprights</span></div>
         </div>
-        <div class="project-card" onclick="showPage('project-beta')">
-          <img src="PLACEHOLDER.jpg" alt="Project 2">
-          <div class="card-overlay"><span>Robotics</span></div>
+        <div class="project-card" onclick="showPage('choked-flow')">
+          <img src="PLACEHOLDER.jpg" alt="Choked Flow Impulse">
+          <div class="card-overlay"><span>Choked Flow Impulse</span></div>
         </div>
-        <div class="project-card" onclick="showPage('project-gamma')">
+        <div class="project-card" onclick="showPage('clock-geartrain')">
+          <img src="PLACEHOLDER.jpg" alt="Clock Geartrain">
+          <div class="card-overlay"><span>Clock Geartrain</span></div>
+        </div>
+        <div class="project-card" onclick="showPage('ebike')">
+          <img src="PLACEHOLDER.jpg" alt="Electric Bicycle">
+          <div class="card-overlay"><span>Electric Bicycle</span></div>
+        </div>
+        <div class="project-card" onclick="showPage('fluidsimver')">
+          <img src="PLACEHOLDER.jpg" alt="Fluid Simulation Verification">
+          <div class="card-overlay"><span>Fluid Simulation Verification</span></div>
+        </div>
+        <div class="project-card" onclick="showPage('chip-clip')">
+          <img src="PLACEHOLDER.jpg" alt="Chip Clip">
+          <div class="card-overlay"><span>Chip Clip</span></div>
+        </div>
+        <div class="project-card" onclick="showPage('magnetic-damping')">
+          <img src="PLACEHOLDER.jpg" alt="Eddy Current Eddy Current Braking">
+          <div class="card-overlay"><span>Eddy Current Braking</span></div>
+        </div>
+        <div class="project-card" onclick="showPage('mmn-surface-prep')">
+          <img src="PLACEHOLDER.jpg" alt="MMN Surfaces">
+          <div class="card-overlay"><span>Preparation of Nano Surfaces</span></div>
+        </div>
+        <div class="project-card" onclick="showPage('projects')">
           <img src="PLACEHOLDER.jpg" alt="Project 3">
           <div class="card-overlay"><span>View Project</span></div>
         </div>
+
+        </div>
       </div>
 
+      <!-- Separator Block-->
+            <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 4rem 0;">
+
+      <!-- Edge to Edge Fullscreen -->
+        <div class="parallax-fullscreen">
+          <div class="parallax-bg-full" style="background-image: url('assets/your-image-here.jpg');"></div>
+          <div class="parallax-overlay-full">
+            <div class="text-content" style="text-align: center; color: white;">
+              <h2 style="color: var(--bg); font-size: 4rem; font-weight: bolder; margin-bottom: 0rem;">
+                Torch 5804
+              </h2>
+              <h4 style="font-weight: bold; margin-top: 0rem; color: var(--text);">First Robotics Competition</h4>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Separator Block-->
+        <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 4rem 0;">
+
+
+
       <!-- Project Redirect - Left -->
-      <div class="block grid-block project-redirect" onclick="showPage('project-alpha')">
+      <div class="block grid-block project-redirect" onclick="showPage('frc-2023')">
         <div class="text-content">
-          <h3>Project Alpha</h3>
-          <p>A deep dive into modular architecture and 3D systems.</p>
+          <h3>Torch 5804, FRC '23</h3>
+          <p>World Championship qualifying robotics season, placing within the top 32 of 3,000+ teams.</p>
         </div>
         <div class="redirect-image-container">
-          <img src="PLACEHOLDER.jpg" alt="Project Alpha">
+          <img src="PLACEHOLDER.jpg" alt="frc23">
         </div>
       </div>
       
       <!-- Project Redirect - Right -->
-      <div class="block grid-block project-redirect" onclick="showPage('project-beta')">
+      <div class="block grid-block project-redirect" onclick="showPage('frc-2022')">
         <div class="redirect-image-container">
-          <img src="PLACEHOLDER.jpg" alt="Project Beta">
+          <img src="PLACEHOLDER.jpg" alt="frc22">
         </div>
         <div class="text-content">
-          <h3>Project Beta</h3>
-          <p>Exploring high-fidelity textures and lighting in WebGL.</p>
+          <h3>Torch 5804, FRC '22</h3>
+          <p>World Championship qualifying and Worlds Creativity Award winning season, placing within the top 12 of 3,000+ teams.</p>
         </div>
       </div>
 
+      <div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
+        <p style="margin-bottom: 0rem;">Participated in FRC from 2018-2023, Captain in 2022.</p>
+      </div>
 
-        </section>
+      <!-- Separator Block-->
+      <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 4rem 0;">
 
-<!-- ## QUICK OVERVIEW SECTION -->
+    </section>
 
-    <section id="quickoverview" class="page">
+<!-- ## HIGHLIGHTS SECTION -->
 
-    <!-- Centered Text Block -->
-<div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
-  <h2>A Quick Overview</h2>
-  <p>This page is for a quick, general overview of different things that I've worked on without getting into the details.</p>
-</div>
+    <section id="highlights" class="page">
 
-<!-- 3D Model Block - Model Right -->
-<div class="block grid-block">
-  
-  <div class="text-content">
-    <h2>FSAE Uprights</h2>
-    <p>
-      Over the course of several months, hundreds of pages of research, and hundreds of hours more of simulation, I created a set of front and rear uprights for my university's FSAE car.
-    </p>
-    <div class="tags">
-    </div>
-  </div>
+      <!-- Invisible Separator Block -->
+        <div style="height: 3rem; width: 100%;"></div>
+      
+      <!-- Centered Text Block -->
+      <div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
+        <h2>Highlights</h2>
+        <p>These are selected highlights of the things I've worked on, based on how interesting I think they are. For a comprehensive collection, see <a href="#projects" style="color: var(--accent);text-decoration:none;font-weight: bold;">Projects.</a></p>
+      </div>
 
-  <model-viewer 
-    src="contents/projects/uprights/fupright.glb" 
-    alt="A 3D model of one of the uprights"
-    auto-rotate 
-    camera-controls 
-    shadow-intensity="1"
-    style="background-color: #f0f0f0; border-radius: 12px;">
-  </model-viewer>
+      <!-- Separator Block-->
+          <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 4rem 0;">
 
-</div>
 
+      <!-- 3D Model Block - Model Right -->
+        <div class="block grid-block">
+          
+          <div class="text-content">
+            <h2>FSAE Uprights</h2>
+            <p>
+              Over the course of several months, hundreds of pages of research, and hundreds of hours of simulation, created a set of front and rear uprights for my university FSAE team.
+            </p>
+            <div class="tags">
+            </div>
+            <a href="#fsae-uprights" class="btn">View Details</a>
+          </div>
+
+          <model-viewer 
+            src="contents/projects/uprights/fupright.glb" 
+            alt="A 3D model of one of the uprights"
+            auto-rotate 
+            camera-controls 
+            shadow-intensity="1"
+            style="background-color: #f0f0f0; border-radius: 12px;">
+          </model-viewer>
+
+        </div>
+
+
+      <!-- Right Text, Left Carousel -->
+        <div class="block grid-block">
+          
+          <div class="carousel">
+            <div class="carousel-track">
+              <img src="project-image-1.jpg" alt="Gallery Image 1">
+            </div>
+          </div>
+
+          <div class="text-content">
+            <h2>Choked Flow Impulse</h2>
+            <p>Created a theoretical model to within a maximum error of 15% when compared experimental data for the impulse imparted by a pressurized vessel at varying pressures releasing to atmosphere.</p>
+            <a href="#choked-flow" class="btn">View Details</a>
+          </div>
+
+        </div>
 
 </section>
 
 
 <!-- ## RESUME SECTION -->
-
+    <!-- Invisible Separator Block -->
+      <div style="height: 3rem; width: 100%;"></div>
 
     <section id="resume" class="page">
 
@@ -196,9 +285,9 @@
 
 
     <!-- FRONT & REAR UPRIGHTS -->
-<section id="project-alpha" class="page">
+<section id="fsae-uprights" class="page">
   <div class="block">
-     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
+     <button onclick="showPage('projects')" class="btn" style="background-color:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
   </div>
 
   <div class="block text-content" style="text-align: center; margin-bottom: 2rem;">
@@ -372,7 +461,7 @@
     keeping to a .3" minimum fillet radius to ensure a 0.5" ball end mill could be used, and design decisions were
     made in order to reduce the number of operations required to machine the part by sacrificing weight savings to keep some 
     surfaces planar. The final safety factor fell somewhere around 2.9, which was determined to be enough that the part isn't
-    expected to fail. Based on <a href="https://ntrs.nasa.gov/api/citations/19660019791/downloads/19660019791.pdf" style="color: var(--accent);">
+    expected to fail. Based on <a href="https://ntrs.nasa.gov/api/citations/19660019791/downloads/19660019791.pdf" style="color: var(--accent);text-decoration:none;font-weight: bold;">
       the fatigue life of aluminum 6061-T6</a> (page 14, R = -1 is most conservative) and assuming our load case is in the right ballpark, 
     the lifetime would be somewhere between 100,000 and 1,000,000 cycles of the absolute worst case loading condition the
     upright is expected to ever face.  
@@ -382,25 +471,31 @@
 </section>
 
 
-<!-- SOMETHING ELSE -->
-<section id="project-beta" class="page">
+
+
+<!-- Choked Flow -->
+<section id="choked-flow" class="page">
   <div class="block">
      <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
   </div>
 
   <div class="block text-content" style="text-align: center;">
-    <h1>Project Alpha: Deep Dive</h1>
-    <p>A comprehensive look at the engineering and design process.</p>
+    <h1>Choked Flow Impulse Prediction</h1>
+    <p>This is a general walkthrough of the process for deriving and conducting an experiment to predict the impulse imparted by a pressurized vessel as it discharges to atmospheric pressure. This lab was created and conducted by a team of three people that included myself, and my role included creating the larger idea, locating relevant documents, deriving the math into a form we could use for our theoretical model, and creating a graphical theoretical model we could easily adjust. </p>
   </div>
 
   <div class="block">
     <model-viewer src="contents/projects/fupright.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
   </div>
+
 </section>
 
 
-<!-- 3RD PROJECT -->
-<section id="project-gamma" class="page">
+
+
+
+<!-- CLOCK GEAR TRAIN PROJECT -->
+<section id="clock-geartrain" class="page">
   <div class="block">
      <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
   </div>
@@ -415,14 +510,138 @@
   </div>
 </section>
 
-<!-- 3RD PROJECT -->
-<section id="project-delta" class="page">
+
+
+
+
+<!-- ELECTRIC BIKE PROJECT -->
+<section id="ebike" class="page">
   <div class="block">
      <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
   </div>
 
   <div class="block text-content" style="text-align: center;">
-    <h1>Project Alpha: Deep Dive</h1>
+    <h1>Electric Bicycle</h1>
+    <p>A comprehensive look at the engineering and design process.</p>
+  </div>
+
+  <div class="block">
+    <model-viewer src="high-res-model.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
+  </div>
+</section>
+
+
+
+
+
+<!-- FLUID SIM PROJECT -->
+<section id="fluidsimver" class="page">
+  <div class="block">
+     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
+  </div>
+
+  <div class="block text-content" style="text-align: center;">
+    <h1>Electric Bicycle</h1>
+    <p>A comprehensive look at the engineering and design process.</p>
+  </div>
+
+  <div class="block">
+    <model-viewer src="high-res-model.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
+  </div>
+</section>
+
+
+
+
+
+<!-- CHIP CLIP PROJECT -->
+<section id="chip-clip" class="page">
+  <div class="block">
+     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
+  </div>
+
+  <div class="block text-content" style="text-align: center;">
+    <h1>Electric Bicycle</h1>
+    <p>A comprehensive look at the engineering and design process.</p>
+  </div>
+
+  <div class="block">
+    <model-viewer src="high-res-model.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
+  </div>
+</section>
+
+
+
+
+
+<!-- MAGNETIC DAMPING PROJECT -->
+<section id="magnetic-damping" class="page">
+  <div class="block">
+     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
+  </div>
+
+  <div class="block text-content" style="text-align: center;">
+    <h1>Electric Bicycle</h1>
+    <p>A comprehensive look at the engineering and design process.</p>
+  </div>
+
+  <div class="block">
+    <model-viewer src="high-res-model.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
+  </div>
+</section>
+
+
+
+
+
+<!-- MMN SURFACES PROJECT -->
+<section id="mmn-surface-prep" class="page">
+  <div class="block">
+     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
+  </div>
+
+  <div class="block text-content" style="text-align: center;">
+    <h1>Electric Bicycle</h1>
+    <p>A comprehensive look at the engineering and design process.</p>
+  </div>
+
+  <div class="block">
+    <model-viewer src="high-res-model.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
+  </div>
+</section>
+
+
+
+
+
+<!-- FRC 23 PROJECT -->
+<section id="frc-2023" class="page">
+  <div class="block">
+     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
+  </div>
+
+  <div class="block text-content" style="text-align: center;">
+    <h1>Electric Bicycle</h1>
+    <p>A comprehensive look at the engineering and design process.</p>
+  </div>
+
+  <div class="block">
+    <model-viewer src="high-res-model.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
+  </div>
+</section>
+
+
+
+
+
+<!-- FRC 22 PROJECT -->
+<section id="frc-2022" class="page">
+  <div class="block">
+     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
+  </div>
+
+  <div class="block text-content" style="text-align: center;">
+    <h1>Electric Bicycle</h1>
     <p>A comprehensive look at the engineering and design process.</p>
   </div>
 

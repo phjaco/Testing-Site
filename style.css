@@ -171,6 +171,8 @@ main {
 
 .btn:hover {
   background: var(--accent-hover);
+  background-color: var(--accent-hover);
+  color: white
 }
 
 /* -------------------------------------------------------------------------- */
