@@ -68,37 +68,49 @@
           <div class="card-overlay"><span>FSAE Uprights</span></div>
         </div>
         <div class="project-card" onclick="showPage('choked-flow')">
-          <img src="PLACEHOLDER.jpg" alt="Choked Flow Impulse">
+          <img src="contents/projects/choked_flow/cover.png" alt="Choked Flow Impulse">
           <div class="card-overlay"><span>Choked Flow Impulse</span></div>
         </div>
         <div class="project-card" onclick="showPage('clock-geartrain')">
-          <img src="PLACEHOLDER.jpg" alt="Clock Geartrain">
+          <img src="contents/projects/clock_geartrain/geartrain-sq.png" alt="Clock Geartrain">
           <div class="card-overlay"><span>Clock Geartrain</span></div>
         </div>
         <div class="project-card" onclick="showPage('ebike')">
-          <img src="PLACEHOLDER.jpg" alt="Electric Bicycle">
+          <img src="contents/projects/ebike/ebike_cover.png" alt="Electric Bicycle">
           <div class="card-overlay"><span>Electric Bicycle</span></div>
         </div>
         <div class="project-card" onclick="showPage('fluidsimver')">
-          <img src="PLACEHOLDER.jpg" alt="Fluid Simulation Verification">
+          <img src="contents/projects/fluidsimver/fluidsim_side.jpg" alt="Fluid Simulation Verification">
           <div class="card-overlay"><span>Fluid Simulation Verification</span></div>
         </div>
         <div class="project-card" onclick="showPage('chip-clip')">
-          <img src="PLACEHOLDER.jpg" alt="Chip Clip">
+          <img src="contents/projects/chip_clip/chip-clip-cover.png" alt="Chip Clip">
           <div class="card-overlay"><span>Chip Clip</span></div>
-        </div>
-        <div class="project-card" onclick="showPage('magnetic-damping')">
-          <img src="PLACEHOLDER.jpg" alt="Eddy Current Eddy Current Braking">
-          <div class="card-overlay"><span>Eddy Current Braking</span></div>
         </div>
         <div class="project-card" onclick="showPage('mmn-surface-prep')">
           <img src="PLACEHOLDER.jpg" alt="MMN Surfaces">
           <div class="card-overlay"><span>Preparation of Nano Surfaces</span></div>
         </div>
+        <div class="project-card" onclick="showPage('magnetic-damping')">
+          <img src="contents/projects/magnetic_damping/magnetic_damping_cover.png" alt="Eddy Current Eddy Current Braking">
+          <div class="card-overlay"><span>Eddy Current Braking</span></div>
+        </div>
+        <div class="project-card" onclick="showPage('mousetrap')">
+          <img src="contents/projects/mousetrap/mousetrap_final.png" alt="Project 3">
+          <div class="card-overlay"><span>Mousetrap Car</span></div>
+        </div>
+<!--         <div class="project-card" onclick="showPage('projects')">
+          <img src="PLACEHOLDER.jpg" alt="Project 3">
+          <div class="card-overlay"><span>View Project</span></div>
+        </div>
         <div class="project-card" onclick="showPage('projects')">
           <img src="PLACEHOLDER.jpg" alt="Project 3">
           <div class="card-overlay"><span>View Project</span></div>
         </div>
+        <div class="project-card" onclick="showPage('projects')">
+          <img src="PLACEHOLDER.jpg" alt="Project 3">
+          <div class="card-overlay"><span>View Project</span></div>
+        </div> -->
 
         </div>
       </div>
@@ -107,7 +119,7 @@
             <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 4rem 0;">
 
       <!-- Edge to Edge Fullscreen -->
-        <div class="parallax-fullscreen">
+        <div class="parallax-fullscreen" >
           <div class="parallax-bg-full" style="background-image: url('assets/your-image-here.jpg');"></div>
           <div class="parallax-overlay-full">
             <div class="text-content" style="text-align: center; color: white;">
@@ -178,7 +190,7 @@
           <div class="text-content">
             <h2>FSAE Uprights</h2>
             <p>
-              Over the course of several months, hundreds of pages of research, and hundreds of hours of simulation, created a set of front and rear uprights for my university FSAE team.
+              Through hundreds of pages of research, and hundreds of hours of modeling and simulation, created a set of front and rear uprights for my university FSAE team spec'd to a Safety Factor greater than 3 without prior physical testing to pull from.
             </p>
             <div class="tags">
             </div>
@@ -208,10 +220,22 @@
 
           <div class="text-content">
             <h2>Choked Flow Impulse</h2>
-            <p>Created a theoretical model to within a maximum error of 15% when compared experimental data for the impulse imparted by a pressurized vessel at varying pressures releasing to atmosphere.</p>
+            <p>Created a theoretical model with a maximum error of 15% when compared experimental data for the impulse imparted by a pressurized vessel at varying pressures releasing to atmosphere.</p>
             <a href="#choked-flow" class="btn">View Details</a>
           </div>
 
+        </div>
+
+        <!-- Parallax Fullscreen Section -->
+        <div class="block parallax-container">
+          <div class="parallax-bg" style="background-image: url('your-large-image.jpg');"></div>
+          <div class="parallax-overlay">
+            <div class="text-content" style="text-align: center; color: white;">
+              <h2 style="color: white;">Torch 5804</h2>
+              <p style="color: rgba(255,255,255,0.9);">Participated as a core member and captain of back to back World Championship qualifying First Robotics team.</p>
+              <a href="#projects-frc" class="btn" style="background: white; color: var(--accent);">More Details</a>
+            </div>
+          </div>
         </div>
 
 </section>
@@ -484,6 +508,29 @@
     <p>This is a general walkthrough of the process for deriving and conducting an experiment to predict the impulse imparted by a pressurized vessel as it discharges to atmospheric pressure. This lab was created and conducted by a team of three people that included myself, and my role included creating the larger idea, locating relevant documents, deriving the math into a form we could use for our theoretical model, and creating a graphical theoretical model we could easily adjust. </p>
   </div>
 
+<!-- Separator Block-->
+<hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 4rem 0;">
+
+<!-- Project Redirect - Left -->
+  <div class="block grid-block" onclick="">
+    <div class="text-content">
+      <h3>Basic Model</h3>
+      <p>The basis of the experiment is a pressurized vessel attached to a pendulum as seen in the image. There is an encoder attached to the rotation point, and the physical properties of the system (mass, volume, pressure) are defined or measurable. </p>
+      <p>The idea was to take the experiment a step beyond predicting the force of the release by instead predicting the impulse, which would require further assumptions and more complicated calculations.</p>
+      <p>The major assumption made for this is that a <a style="color:var(--text);text-decoration:none;font-weight:bold;">choked flow regime</a> is both satisfied, and also is responsible for the majority of the impulse enacted on the system.</p>
+    </div>
+    <div class="redirect-image-container">
+      <img src="contents/projects/choked_flow/force_model.png" alt="Project Name" style='max-width: 300px; height:auto; border:2px solid var(--text); border-radius: 2px;'>
+    </div>
+  </div>
+  
+<!-- Centered Text Block -->
+<div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
+  <h3>Choked Flow Regime</h3>
+  <p>Choked flow occurs when a vessel's interior pressure is significantly greater than that of the pressure downstream, surpassing a critical pressure ratio. When the vessel pressure exceeds this critical amount, the flow velocity is approximated as holding constant at the speed of sound for the fluid.</p>
+  <p>For example, if the upstream pressure is 14.7 psi (1 atm), vessel pressure is 85 psi, and the fluid is dry air at 20°C, then the heat capacity ratio is 1.4, the critical pressure ratio is 1.893, and the flow velocity is roughly the speed of sound while discharging from 85 psi to 27.8 psi. Our additional assumption beyond Choked Flow applying was that the air released following choked flow would not be significant.</p>
+</div>
+
   <div class="block">
     <model-viewer src="contents/projects/fupright.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
   </div>
@@ -609,6 +656,27 @@
     <model-viewer src="high-res-model.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
   </div>
 </section>
+
+
+
+
+
+<!-- MOUSETRAP CAR PROJECT -->
+<section id="mousetrap" class="page">
+  <div class="block">
+     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
+  </div>
+
+  <div class="block text-content" style="text-align: center;">
+    <h1>Electric Bicycle</h1>
+    <p>A comprehensive look at the engineering and design process.</p>
+  </div>
+
+  <div class="block">
+    <model-viewer src="high-res-model.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
+  </div>
+</section>
+
 
 
 

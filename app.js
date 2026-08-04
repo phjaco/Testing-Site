@@ -11,6 +11,7 @@ const PROJECT_ORDER = [
     'chip-clip',
     'magnetic-damping',
     'mmn-surface-prep',
+    'mousetrap',
     'frc-2023',
     'frc-2022'
     ];
@@ -24,6 +25,7 @@ const DISPLAY_NAMES = {
     'chip-clip' : 'Chip Clip',
     'magnetic-damping' : 'Eddy Current Brakes',
     'mmn-surface-prep' : 'MMN Surfaces',
+    'mousetrap':'Mousetrap Car',
     'frc-2023' : "FRC '23",
     'frc-2022' : "FRC '22",
     };
