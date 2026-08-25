@@ -3,6 +3,7 @@
  */
 
 const PROJECT_ORDER = [
+    'sojo-s26',
     'fsae-uprights', 
     'choked-flow', 
     'clock-geartrain', 
@@ -17,8 +18,9 @@ const PROJECT_ORDER = [
     ];
 
 const DISPLAY_NAMES = {
+    'sojo-s26':'SOJO Summer 2026',
     'fsae-uprights': 'FSAE Uprights',
-    'choked-flow': 'Choked FLow Impulse',
+    'choked-flow': 'Choked Flow Impulse',
     'clock-geartrain': 'Clock Geartrain',
     'ebike': 'Electric Bike',
     'fluidsimver' : 'Fluid Sim. Verification',
@@ -66,7 +68,8 @@ const Router = {
         this.handleTaskbar(id);
         
         UIComponents.initCarousels();
-        UIComponents.initModelMaterials();
+        //UIComponents.initModelMaterials();
+        UIComponents.renderMath();   
     },
 
     updateNav(id) {
@@ -180,6 +183,20 @@ const UIComponents = {
             });
         });
     },
+
+
+     renderMath() {
+    if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "'$$", right: "$$'", display: true },
+                { left: "'$", right: "$'", display: false }
+            ]
+        });
+    } else {
+        console.warn('KaTeX not loaded — check that vendor/katex/ files exist and paths are correct.');
+    }
+},
 
     // initModelMaterials() {
     //     // Fix: Added safety checks to prevent breaking the viewer

@@ -8,6 +8,11 @@
   <link rel="stylesheet" href="style.css">
 
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <script defer src="vendor/katex/katex.min.js"></script>
+  <script defer src="vendor/katex/auto-render.min.js"></script>
+  <link rel="icon" type="image/x-icon" href="/21047.ico">
+
 </head>
 <body>
 
@@ -23,8 +28,8 @@
 
   <main id="content">
 
+<!--MARK: HOME -->
 
-<!-- ## HOME SECTION -->
 
     <section id="home" class="page active">
 
@@ -45,7 +50,7 @@
         </section>
 
 
-<!-- ## PROJECTS SECTION -->
+<!--MARK: PROJECTS-->
 
 
     <section id="projects" class="page">
@@ -60,6 +65,26 @@
       <!-- Separator Block-->
       <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 4rem 0;">
 
+      <!-- INTERNSHIPS -->
+
+            <div class="block text-content" style="max-width: 900px; margin: 0 auto; text-align: center;">
+                  <!-- Project Redirect - Left -->
+      <div class="block grid-block project-redirect" onclick="showPage('frc-2023')">
+        <div class="text-content">
+          <h3 style="text-align: left;">SOJO Industries, Summer '26</h3>
+          <p style="text-align: left;">13 week mobile robotic packaging engineering internship, creating parts put on the packaging lines and fulfilled the duties of a full Mechanical Engineer's position while the site underwent staff transitions.</p>
+        </div>
+        <div class="redirect-image-container">
+          <img src="PLACEHOLDER.jpg" alt="frc23">
+        </div>
+      </div> 
+      </div>
+
+      <!-- Separator Block-->
+      <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 4rem 0;">
+
+      <!-- PERSONAL/COURSE PROJECTS -->
+      
       <!-- Project Cards -->
       <div class="block" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 1.5rem;">
         
@@ -167,7 +192,7 @@
 
     </section>
 
-<!-- ## HIGHLIGHTS SECTION -->
+<!-- MARK: HIGHLIGHTS -->
 
     <section id="highlights" class="page">
 
@@ -241,7 +266,7 @@
 </section>
 
 
-<!-- ## RESUME SECTION -->
+<!-- MARK: RESUME -->
     <!-- Invisible Separator Block -->
       <div style="height: 3rem; width: 100%;"></div>
 
@@ -265,7 +290,7 @@
         </section>
 
 
-<!-- ## CONTACT SECTION -->
+<!-- MARK: CONTACT -->
 
 
     <section id="contact" class="page">
@@ -308,7 +333,18 @@
 
 
 
-    <!-- FRONT & REAR UPRIGHTS -->
+    <!-- INTERNSHIPS -->
+
+
+    <!-- SOJO S26 -->
+        <section id="sojo-s26" class="page">
+        <div class="block">
+          <button onclick="showPage('projects')" class="btn" style="background-color:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
+        </div>
+        </section>
+      <!-- PERSONAL PROJECTS -->
+
+    <!-- MARK: F&R UPRIGHTS -->
 <section id="fsae-uprights" class="page">
   <div class="block">
      <button onclick="showPage('projects')" class="btn" style="background-color:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
@@ -497,7 +533,7 @@
 
 
 
-<!-- Choked Flow -->
+<!-- MARK: Choked Flow -->
 <section id="choked-flow" class="page">
   <div class="block">
      <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
@@ -531,10 +567,54 @@
   <p>For example, if the upstream pressure is 14.7 psi (1 atm), vessel pressure is 85 psi, and the fluid is dry air at 20°C, then the heat capacity ratio is 1.4, the critical pressure ratio is 1.893, and the flow velocity is roughly the speed of sound while discharging from 85 psi to 27.8 psi. Our additional assumption beyond Choked Flow applying was that the air released following choked flow would not be significant.</p>
 </div>
 
-  <div class="block">
-    <model-viewer src="contents/projects/fupright.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
+<details class="dropdown">
+  <summary class="dropdown-summary">
+    <span style="color:var(--accent);font-size: x-large; font-weight: bold;">The Math</span>
+    <span class="dropdown-arrow"></span>
+  </summary>
+  <div class="dropdown-content">
+    <p>This is the original workings I used when developing the theoretical model. It is largely based off a paper by Dean Wheeler from BYU that I'd found, but their approach targeted a relationship between the pressure and temperature in the tank relative to a time constant.</p>
+    <p>The goal of our math was to determine an impulse by integrating the standard thrust equation, so somewhere near eqn 9 we deviate.</p>
+    <p>First, the Ideal Gas Law:</p>
+    '$$PV = nRT; \quad \frac{P}{RT} = \frac{n}{V} \tag{1}$$'
+    <p>By substituting '$\rho = \frac{nM}{V}$', where M is the molecular weight of air, ~0.02896 kg/mol, the following is derived:</p>
+    '$$\rho = \frac{PM}{RT} \tag{2}$$'
+    <p>Next, thermodynamic relationships for pressure and temperature in a reversible adiabatic expansion of a constant-heat-capacity ideal gas are referenced:</p>
+    '$$P = P_0\left(\frac{\rho}{\rho_0}\right)^{\gamma} \tag{3}$$'
+    '$$T = T_0\left(\frac{\rho}{\rho_0}\right)^{\gamma-1} \tag{4}$$'
+    <p>“0” subscript indicates initial, known pressures, temperatures, and density of the gas.</p>
+    <p>Application of the above equations to tank conditions:</p>
+    '$$P_* = P_{tank}\left(\frac{\rho_*}{\rho_{tank}}\right)^{\gamma} \tag{5}$$'
+    '$$T_* = T_{tank}\left(\frac{\rho_*}{\rho_{tank}}\right)^{\gamma-1} \tag{6}$$'
+    <p>'$$\gamma = 1.4$$' is used for air; the goal here is to link the pressure and temperature of the tank over time to the density of gas in the tank. </p>
+    <p>To find the density of the gas in the tank as it releases, we need to approximate it under the conditions of choked flow, which are met when '$P_{\text{tank}} \ge P_{\text{atm}} \left( \frac{\gamma + 1}{2} \right)^{\frac{\gamma}{\gamma - 1}}$'. Again, this is the region we actually care about, as when the flow isn’t choked the pressure is low enough that its impulse can be assumed negligible. Under choked flow,the velocity of the gas at the nozzle is exactly the speed of sound, or 343 m/s. Applying this gives the following:</p>
+    '$$\frac{\rho_*}{\rho_{tank}} = \left(\frac{2}{\gamma+1}\right)^{\frac{1}{\gamma-1}} \tag{7}$$'
+    <p>This equation can be substituted in several places. Ideal gases only depend on temperature for the speed of sound, in the following equation that replaced elements of '$T_{\text{*}}$' with the density equation.</p>
+    '$$v_* = c_* = \left(\frac{2\gamma}{\gamma+1}\cdot\frac{RT_{tank}}{M}\right)^{\frac{1}{2}} \tag{8}$$'
+    <p>With the effective velocity now found, the mass flow rate can be calculated, where '$d_*$' is nozzle diameter. '$C_d$' is the “discharge coefficient”, and depends on how the nozzle transitions from the tank’s surface to the nozzle, and how it releases into the air, i.e. sharp corners vs. filleted edges. Generally, we can assume it’s likely ~0.82, though it could range from 0.60 to 0.98.</p>
+    '$$\frac{dm}{dt} = C_d A_* \rho_* v_*, \qquad A_* = \frac{\pi}{4}d_*^2 \tag{9}$$'
+    <p>Applying all of the previously found equations,</p>
+    '$$\frac{dm}{dt} = C_d A_* \rho_{tank}\left(\frac{2}{\gamma+1}\right)^{\frac{1}{\gamma-1}}\left(\frac{2\gamma}{\gamma+1}\cdot\frac{RT_{tank}}{M}\right)^{\frac{1}{2}} = C_d A_* \rho_{tank}\left(\gamma\frac{RT_{tank}}{M}\right)^{\frac{1}{2}}\left(\frac{2}{\gamma+1}\right)^{\frac{\gamma+1}{2(\gamma-1)}} \tag{10}$$'
+    <p>The thrust equation is as follows</p>
+    '$$F(t) = \frac{dm}{dt}v_*(t) + \left[P_*(t) - P_{atm}\right]A_* \tag{11}$$'
+    <p>The literature used as reference for the equations above suggests either an adiabatic or isothermal assumption. Choosing adiabatic leads to the following:</p>
+    '$$\frac{dm}{dt}v_*(t) = C_d A_* P_{tank}(t)\left[\gamma\left(\frac{2}{\gamma+1}\right)^{\frac{\gamma}{\gamma-1}}\right] \tag{12}$$'
+    <p>Factoring out '$P_{\text{tank}}(t) \left[ \gamma \left( \frac{2}{\gamma + 1} \right)^{\frac{\gamma}{\gamma - 1}} \right]$' from both the definition of '$P_*$' and mass flow rate/velocity:</p>
+    '$$F(t) = A_*\left(P_{tank}(t)\left[\left(\frac{2}{\gamma+1}\right)^{\frac{\gamma}{\gamma-1}}\right](\gamma C_d + 1) - P_{atm}\right) \tag{13}$$'
+    <p>Where '$P_{\text{tank}}(t)$' is:</p>
+    '$$P_{tank}(t) = P_0\left[1 + \left(\frac{\gamma-1}{2}\right)\frac{t}{\tau}\right]^{\frac{2\gamma}{1-\gamma}} \tag{14}$$'
+    <p>and '$\tau$' is defined as:</p>
+    '$$\tau = \frac{V_{tank}}{C_d A_* c_0}\left(\frac{\gamma+1}{2}\right)^{\frac{\gamma+1}{2(\gamma-1)}} \tag{15}$$'
+    <p>Where '$c_0$' is the speed of sound for air, ~346 m/s at 298K. Finally, the impulse can be calculated.</p>
+    '$$I = A_*\int_0^t\left(P_0\left[1+\left(\frac{\gamma-1}{2}\right)\frac{t}{\tau}\right]^{\frac{2\gamma}{1-\gamma}}\left[\left(\frac{2}{\gamma+1}\right)^{\frac{\gamma}{\gamma-1}}\right](\gamma C_d+1) - P_{atm}\right)dt \tag{16}$$'
+    <p>For Air:</p>
+    '$$I = A_*\int_0^t\left(P_0\left[1+\frac{0.2t}{\tau}\right]^{-7}\left[\frac{5}{6}\right]^{3.5}(2.148) - 101325\ \text{Pa}\right)dt$$'
+    <p>This equation is translatable into a plotting tool like MATLAB or <a href="https://www.desmos.com/calculator/xvk4vnqmab" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: bold; text-decoration: none;">Desmos</a> where we can compare variables quickly.</p>
+    <p>This model makes two major assumptions: the choked flow's imparted impulse is so much greater than when the chamber isn't choked that it can be ignored, and the process of pressure releasing is adiabatic and not isothermal. To change the model, T would be set constant and '$P_{\text{tank}} = P_0e^{-t/\tau}$', trickling down such that '$I = \int_{0}^{t} A_e \left( P_0 e^{-\frac{t}{\tau}} \left[ \left(\frac{2}{\gamma+1}\right)^{\frac{\gamma}{\gamma-1}} \right] (\gamma C_d + 1) - P_{\text{atm}} \right) dt$'. This was included at the bottom of the Desmos script linked above. If the other consideration is proven false by our data, our intent was to try formulating an additional model for unchoked flow afterwards in our revisions, which was proven unnecessary.</p>
+  
   </div>
-
+</details>
+  
 </section>
 
 
@@ -561,7 +641,7 @@
 
 
 
-<!-- ELECTRIC BIKE PROJECT -->
+<!-- MARK: ELECTRIC BIKE -->
 <section id="ebike" class="page">
   <div class="block">
      <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
@@ -581,7 +661,7 @@
 
 
 
-<!-- FLUID SIM PROJECT -->
+<!-- MARK: FLUID SIM -->
 <section id="fluidsimver" class="page">
   <div class="block">
      <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
@@ -601,7 +681,7 @@
 
 
 
-<!-- CHIP CLIP PROJECT -->
+<!-- MARK: CHIP CLIP -->
 <section id="chip-clip" class="page">
   <div class="block">
      <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
@@ -619,9 +699,9 @@
 
 
 
+<!-- MARK: MAGNETIC DAMPING -->
 
 
-<!-- MAGNETIC DAMPING PROJECT -->
 <section id="magnetic-damping" class="page">
   <div class="block">
      <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
@@ -641,7 +721,7 @@
 
 
 
-<!-- MMN SURFACES PROJECT -->
+<!-- MARK: MMN SURFACES -->
 <section id="mmn-surface-prep" class="page">
   <div class="block">
      <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
@@ -661,7 +741,7 @@
 
 
 
-<!-- MOUSETRAP CAR PROJECT -->
+<!-- MARK: MOUSETRAP CAR -->
 <section id="mousetrap" class="page">
   <div class="block">
      <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
@@ -682,7 +762,7 @@
 
 
 
-<!-- FRC 23 PROJECT -->
+<!-- MARK: FRC 23 -->
 <section id="frc-2023" class="page">
   <div class="block">
      <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
@@ -701,8 +781,7 @@
 
 
 
-
-<!-- FRC 22 PROJECT -->
+<!-- MARK: FRC 22 -->
 <section id="frc-2022" class="page">
   <div class="block">
      <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
@@ -722,7 +801,7 @@
 
 
 
-<!-- DEV BLOCKS -->
+<!-- MARK: DEV BLOCKS -->
 
 <section id="DevBlocks" class="page" style="padding-top: 100px;">
   
@@ -984,6 +1063,32 @@
     </table>
   </div>
 </div>
+
+<!--Dropdown w/ math -->
+
+<details class="dropdown">
+  <summary class="dropdown-summary">
+    <span>Show full derivation &amp; equations</span>
+    <span class="dropdown-arrow"></span>
+  </summary>
+  <div class="dropdown-content">
+    <p>'$$PV = nRT; \quad \frac{P}{RT} = \frac{n}{V} \tag{1}$$'</p>
+    <!-- ...rest of your equations... -->
+  </div>
+</details>
+
+
+<!--Plain dropdown-->
+
+<details class="dropdown">
+  <summary class="dropdown-summary">
+    <span>Bill of Materials</span>
+    <span class="dropdown-arrow"></span>
+  </summary>
+  <div class="dropdown-content">
+    <p>Some regular text, a list, a table, whatever you want.</p>
+  </div>
+</details>
 
 
 </section>

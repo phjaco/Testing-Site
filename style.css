@@ -710,6 +710,78 @@ body.in-project .project-taskbar {
   color: white;
 }
 
+/* -------------------------------------------------------------------------- */
+/* 4b. DROPDOWN                                  */
+/* -------------------------------------------------------------------------- */
+
+.dropdown {
+  background: var(--card-bg);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+  overflow: hidden;
+}
+
+/* Kill the default disclosure triangle so we can draw our own arrow */
+.dropdown summary {
+  list-style: none;
+  cursor: pointer;
+}
+.dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.dropdown-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.dropdown-summary:hover {
+  background: var(--bg);
+}
+
+.dropdown-summary .dropdown-arrow {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+/* Arrow flips to point up when open */
+.dropdown[open] > .dropdown-summary .dropdown-arrow {
+  transform: rotate(-135deg);
+}
+
+.dropdown-content {
+  padding: 0.5rem 1.25rem 1.5rem;
+  border-top: 1px solid var(--bg);
+  overflow-x: auto; /* wide content (equations, tables, code) scrolls instead of breaking layout */
+}
+
+/* Fade/slide-in animation when opened */
+.dropdown-content {
+  animation: dropdownFade 0.25s ease;
+}
+
+@keyframes dropdownFade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-content .katex-display {
+  margin: 1.25rem 0;
+}
+
 /* Mobile Compatibility */
 @media (max-width: 768px) {
   .parallax-bg-full {
