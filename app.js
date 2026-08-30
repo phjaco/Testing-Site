@@ -70,6 +70,7 @@ const Router = {
         UIComponents.initCarousels();
         //UIComponents.initModelMaterials();
         UIComponents.renderMath();   
+        PDFViewerModule.init();
     },
 
     updateNav(id) {
@@ -131,8 +132,52 @@ const Router = {
             });
             scrollTopBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    }
-};
+
+        const backBtn = document.getElementById('back-to-projects');
+        const navEl = document.querySelector('.nav');
+
+        if (backBtn && navEl) {
+            const OVERLAP = 22;       // how far it tucks behind the nav pill's left edge
+            const MIN_SPACE = 60;     // minimum room needed to the left before hiding
+            const HEIGHT_REDUCTION = 10; // how much thinner than the nav pill (px, split evenly top/bottom)
+
+            const positionBackButton = () => {
+                if (window.innerWidth <= 768) return; // hidden via CSS anyway
+
+                const navRect = navEl.getBoundingClientRect();
+                const buttonWidth = backBtn.offsetWidth;
+                const desiredLeft = navRect.left - buttonWidth + OVERLAP;
+
+                if (desiredLeft < MIN_SPACE) {
+                    backBtn.classList.add('no-room');
+                } else {
+                    backBtn.classList.remove('no-room');
+                    const thinnerHeight = navRect.height - HEIGHT_REDUCTION;
+                    backBtn.style.top = `${navRect.top + HEIGHT_REDUCTION / 2}px`;
+                    backBtn.style.height = `${thinnerHeight}px`;
+                    backBtn.style.left = `${desiredLeft}px`;
+                }
+            };
+
+            positionBackButton();
+            window.addEventListener('resize', positionBackButton);
+            window.addEventListener('hashchange', () => setTimeout(positionBackButton, 0));
+
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                const scrollingDown = currentScrollY > lastScrollY;
+
+                if (currentScrollY > 80 && scrollingDown) {
+                    backBtn.classList.add('scrolled-down');
+                } else {
+                    backBtn.classList.remove('scrolled-down');
+                }
+                lastScrollY = currentScrollY;
+            });
+            }
+        }
+    };
 
 /**
  * COPY TO CLIPBOARD UTILITY
@@ -186,17 +231,17 @@ const UIComponents = {
 
 
      renderMath() {
-    if (window.renderMathInElement) {
-        renderMathInElement(document.body, {
-            delimiters: [
-                { left: "'$$", right: "$$'", display: true },
-                { left: "'$", right: "$'", display: false }
-            ]
-        });
-    } else {
-        console.warn('KaTeX not loaded — check that vendor/katex/ files exist and paths are correct.');
-    }
-},
+        if (window.renderMathInElement) {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: "'$$", right: "$$'", display: true },
+                    { left: "'$", right: "$'", display: false }
+                ]
+            });
+        } else {
+            console.warn('KaTeX not loaded — check that vendor/katex/ files exist and paths are correct.');
+        }
+    },
 
     // initModelMaterials() {
     //     // Fix: Added safety checks to prevent breaking the viewer
@@ -225,3 +270,143 @@ const UIComponents = {
 
 document.addEventListener('DOMContentLoaded', () => Router.init());
 window.showPage = (id) => window.location.hash = id;
+
+/**
+ * PDF VIEWER (custom, lazy-loaded continuous scroll, no native browser chrome)
+ */
+const PDFViewerModule = {
+    async init() {
+        const containers = document.querySelectorAll('.pdf-viewer:not([data-initialized])');
+        for (const container of containers) {
+            container.dataset.initialized = "true";
+            this.setupViewer(container);
+        }
+    },
+
+    async setupViewer(container) {
+        const url = container.dataset.pdfUrl;
+        if (!url) return;
+
+        const scrollEl = container.querySelector('.pdf-viewer-scroll');
+        const pageInfo = container.querySelector('.pdf-viewer-page-info');
+
+        let pdfjsLib;
+        try {
+            pdfjsLib = await import('./vendor/pdfjs/pdf.min.mjs');
+            pdfjsLib.GlobalWorkerOptions.workerSrc = './vendor/pdfjs/pdf.worker.min.mjs';
+        } catch (err) {
+            console.error('Failed to load PDF.js', err);
+            scrollEl.innerHTML = '<div class="pdf-viewer-loading">Could not load PDF viewer.</div>';
+            return;
+        }
+
+        let pdfDoc;
+        try {
+            pdfDoc = await pdfjsLib.getDocument(url).promise;
+        } catch (err) {
+            console.error('Failed to load PDF', err);
+            scrollEl.innerHTML = '<div class="pdf-viewer-loading">Could not load PDF.</div>';
+            return;
+        }
+
+        scrollEl.innerHTML = '';
+        const numPages = pdfDoc.numPages;
+        const dpr = window.devicePixelRatio || 1;
+
+        // Build one placeholder wrapper per page, sized via aspect-ratio
+        // (based on page 1's dimensions) so scroll height is stable before render.
+        const firstPage = await pdfDoc.getPage(1);
+        const baseViewport = firstPage.getViewport({ scale: 1 });
+        const aspectRatio = baseViewport.width / baseViewport.height;
+
+        const pageEls = [];
+        for (let i = 1; i <= numPages; i++) {
+            const wrap = document.createElement('div');
+            wrap.className = 'pdf-page';
+            wrap.dataset.pageNum = i;
+            wrap.style.aspectRatio = aspectRatio;
+            wrap.style.maxWidth = `${baseViewport.width}px`;
+
+            const placeholder = document.createElement('div');
+            placeholder.className = 'pdf-page-placeholder';
+            placeholder.textContent = `Page ${i}`;
+            wrap.appendChild(placeholder);
+
+            scrollEl.appendChild(wrap);
+            pageEls.push(wrap);
+        }
+
+        const renderedPages = new Set();
+
+        const renderPage = async (wrap) => {
+            const num = parseInt(wrap.dataset.pageNum, 10);
+            if (renderedPages.has(num)) return;
+            renderedPages.add(num);
+
+            const page = await pdfDoc.getPage(num);
+            const containerWidth = wrap.clientWidth;
+            const unscaledViewport = page.getViewport({ scale: 1 });
+            const scale = (containerWidth / unscaledViewport.width) * dpr;
+            const viewport = page.getViewport({ scale });
+
+            const canvas = document.createElement('canvas');
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            const ctx = canvas.getContext('2d');
+
+            try {
+                await page.render({ canvasContext: ctx, viewport }).promise;
+                wrap.innerHTML = '';
+                wrap.appendChild(canvas);
+            } catch (err) {
+                renderedPages.delete(num); // allow retry if render failed/was cancelled
+            }
+        };
+
+        const unrenderPage = (wrap) => {
+            const num = parseInt(wrap.dataset.pageNum, 10);
+            if (!renderedPages.has(num)) return;
+            renderedPages.delete(num);
+            wrap.innerHTML = '';
+            const placeholder = document.createElement('div');
+            placeholder.className = 'pdf-page-placeholder';
+            placeholder.textContent = `Page ${num}`;
+            wrap.appendChild(placeholder);
+        };
+
+        // Preload ~1 viewport ahead/behind; unrender once well outside that margin.
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    renderPage(entry.target);
+                } else {
+                    unrenderPage(entry.target);
+                }
+            });
+        }, {
+            root: scrollEl,
+            rootMargin: '600px 0px 600px 0px',
+            threshold: 0
+        });
+
+        pageEls.forEach(el => observer.observe(el));
+
+        // Track which page is most visible for the "Page X of N" label.
+        const labelObserver = new IntersectionObserver((entries) => {
+            let best = null;
+            entries.forEach(entry => {
+                if (entry.isIntersecting && (!best || entry.intersectionRatio > best.intersectionRatio)) {
+                    best = entry;
+                }
+            });
+            if (best) {
+                pageInfo.textContent = `Page ${best.target.dataset.pageNum} of ${numPages}`;
+            }
+        }, {
+            root: scrollEl,
+            threshold: [0.25, 0.5, 0.75]
+        });
+
+        pageEls.forEach(el => labelObserver.observe(el));
+    }
+};

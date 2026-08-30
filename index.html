@@ -37,7 +37,7 @@
 <!-- Edge to Edge Fullscreen -->
 <div class="parallax-fullscreen">
   <div class="parallax-bg-full" style="background-image: url('contents/home/parallax_fsaecar.jpg')"></div>
-  <div class="parallax-overlay-full">
+  <div class="parallax-overlay-full" style=" align-items: flex-start; justify-content: center; padding: 2rem 2rem 2rem; box-sizing: border-box;">
     <div class="text-content" style="text-align: center; color: white;">
       <h2 style="color: white; font-size: 3rem; letter-spacing: 4px;">
         Patrick Jacobs' Engineering Portfolio
@@ -65,17 +65,17 @@
       <!-- Separator Block-->
       <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 4rem 0;">
 
-      <!-- INTERNSHIPS -->
+      <!-- MARK: INTERNSHIPS -->
 
             <div class="block text-content" style="max-width: 900px; margin: 0 auto; text-align: center;">
                   <!-- Project Redirect - Left -->
-      <div class="block grid-block project-redirect" onclick="showPage('frc-2023')">
+      <div class="block grid-block project-redirect" onclick="showPage('sojo-s26')">
         <div class="text-content">
           <h3 style="text-align: left;">SOJO Industries, Summer '26</h3>
-          <p style="text-align: left;">13 week mobile robotic packaging engineering internship, creating parts put on the packaging lines and fulfilled the duties of a full Mechanical Engineer's position while the site underwent staff transitions.</p>
+          <p style="text-align: left;">13 week mobile robotic packaging engineering internship, created new parts for the packaging lines and fulfilled the duties of a full Mechanical Engineer's position while the site underwent staff transitions.</p>
         </div>
         <div class="redirect-image-container">
-          <img src="PLACEHOLDER.jpg" alt="frc23">
+          <img src="contents/projects/sojo26/SOJOLOGO.png" alt="sojo26" style="height: 225px; width: auto;">
         </div>
       </div> 
       </div>
@@ -83,7 +83,7 @@
       <!-- Separator Block-->
       <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 4rem 0;">
 
-      <!-- PERSONAL/COURSE PROJECTS -->
+      <!-- MARK: PERSONAL/COURSE PROJECTS -->
       
       <!-- Project Cards -->
       <div class="block" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 1.5rem;">
@@ -239,7 +239,7 @@
           
           <div class="carousel">
             <div class="carousel-track">
-              <img src="project-image-1.jpg" alt="Gallery Image 1">
+              <img src="contents/projects/choked_flow/choked-flow-trials.png" alt="Choked Flow Trials">
             </div>
           </div>
 
@@ -338,17 +338,14 @@
 
     <!-- SOJO S26 -->
         <section id="sojo-s26" class="page">
-        <div class="block">
-          <button onclick="showPage('projects')" class="btn" style="background-color:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
-        </div>
+        
+        
+
         </section>
       <!-- PERSONAL PROJECTS -->
 
     <!-- MARK: F&R UPRIGHTS -->
 <section id="fsae-uprights" class="page">
-  <div class="block">
-     <button onclick="showPage('projects')" class="btn" style="background-color:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
-  </div>
 
   <div class="block text-content" style="text-align: center; margin-bottom: 2rem;">
     <h1>Formula Student Uprights</h1>
@@ -393,11 +390,11 @@
 
   <!-- Table -->
   <div class="table-container">
-    <table class="link-table">
+    <table class="link-table" style="justify-content: left;">
       <thead>
         <tr>
-          <th>Abbreviated Title</th>
-          <th>Link</th>
+          <th style="font-size: large;">Abbreviated Title</th>
+          <th style="font-size: large;">Link</th>
         </tr>
       </thead>
       <tbody>
@@ -535,9 +532,6 @@
 
 <!-- MARK: Choked Flow -->
 <section id="choked-flow" class="page">
-  <div class="block">
-     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
-  </div>
 
   <div class="block text-content" style="text-align: center;">
     <h1>Choked Flow Impulse Prediction</h1>
@@ -564,10 +558,11 @@
 <div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
   <h3>Choked Flow Regime</h3>
   <p>Choked flow occurs when a vessel's interior pressure is significantly greater than that of the pressure downstream, surpassing a critical pressure ratio. When the vessel pressure exceeds this critical amount, the flow velocity is approximated as holding constant at the speed of sound for the fluid.</p>
+  <img src="contents/projects/choked_flow/choked_flow_example.png" alt="Example Diagram" style='max-width: 500px; height:auto;'>
   <p>For example, if the upstream pressure is 14.7 psi (1 atm), vessel pressure is 85 psi, and the fluid is dry air at 20°C, then the heat capacity ratio is 1.4, the critical pressure ratio is 1.893, and the flow velocity is roughly the speed of sound while discharging from 85 psi to 27.8 psi. Our additional assumption beyond Choked Flow applying was that the air released following choked flow would not be significant.</p>
 </div>
 
-<details class="dropdown">
+<details open class="dropdown">
   <summary class="dropdown-summary">
     <span style="color:var(--accent);font-size: x-large; font-weight: bold;">The Math</span>
     <span class="dropdown-arrow"></span>
@@ -610,11 +605,31 @@
     <p>For Air:</p>
     '$$I = A_*\int_0^t\left(P_0\left[1+\frac{0.2t}{\tau}\right]^{-7}\left[\frac{5}{6}\right]^{3.5}(2.148) - 101325\ \text{Pa}\right)dt$$'
     <p>This equation is translatable into a plotting tool like MATLAB or <a href="https://www.desmos.com/calculator/xvk4vnqmab" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: bold; text-decoration: none;">Desmos</a> where we can compare variables quickly.</p>
-    <p>This model makes two major assumptions: the choked flow's imparted impulse is so much greater than when the chamber isn't choked that it can be ignored, and the process of pressure releasing is adiabatic and not isothermal. To change the model, T would be set constant and '$P_{\text{tank}} = P_0e^{-t/\tau}$', trickling down such that '$I = \int_{0}^{t} A_e \left( P_0 e^{-\frac{t}{\tau}} \left[ \left(\frac{2}{\gamma+1}\right)^{\frac{\gamma}{\gamma-1}} \right] (\gamma C_d + 1) - P_{\text{atm}} \right) dt$'. This was included at the bottom of the Desmos script linked above. If the other consideration is proven false by our data, our intent was to try formulating an additional model for unchoked flow afterwards in our revisions, which was proven unnecessary.</p>
+    <p>This model makes two major assumptions: the choked flow's imparted impulse is so much greater than when the chamber isn't choked that it can be ignored, and the process of pressure releasing is adiabatic and not isothermal. To change the model, T would be set constant and '$P_{\text{tank}} = P_0e^{-t/\tau}$', trickling down such that '$I = \int_{0}^{t} A_* \left( P_0 e^{-\frac{t}{\tau}} \left[ \left(\frac{2}{\gamma+1}\right)^{\frac{\gamma}{\gamma-1}} \right] (\gamma C_d + 1) - P_{\text{atm}} \right) dt$'. This was included at the bottom of the Desmos script linked above. If the other consideration is proven false by our data, our intent was to try formulating an additional model for unchoked flow afterwards in our revisions, which was proven unnecessary.</p>
   
   </div>
 </details>
   
+<!-- Centered Text Block -->
+<div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
+  <h3>Presentation</h3>
+  <p>With a theoretical model established, we conducted the experiment and compared the results. As part of this project, we were required to present our findings in a formal presentation that can be viewed below.</p>
+  <p>The presentation further explains our experiment, and confirmed the viability of the choked flow model, and in particular, the adiabatic model is more accurate than the isothermal assumption. Adiabatic fell within 15% of the experimental results for all datapoints, and both models showed diminishing accuracy at higher pressures.</p>
+</div>
+
+
+  <!-- PDF Viewer -->
+<div class="pdf-viewer" data-pdf-url="contents/projects/choked_flow/ChokedFlowPresentation.pdf">
+  <div class="pdf-viewer-toolbar">
+    <span class="pdf-viewer-page-info">Loading…</span>
+  </div>
+  <div class="pdf-viewer-scroll">
+    <div class="pdf-viewer-loading">Loading PDF…</div>
+  </div>
+</div>
+
+
+
 </section>
 
 
@@ -623,9 +638,6 @@
 
 <!-- CLOCK GEAR TRAIN PROJECT -->
 <section id="clock-geartrain" class="page">
-  <div class="block">
-     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
-  </div>
 
   <div class="block text-content" style="text-align: center;">
     <h1>Project Alpha: Deep Dive</h1>
@@ -643,18 +655,211 @@
 
 <!-- MARK: ELECTRIC BIKE -->
 <section id="ebike" class="page">
-  <div class="block">
-     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
-  </div>
 
   <div class="block text-content" style="text-align: center;">
     <h1>Electric Bicycle</h1>
-    <p>A comprehensive look at the engineering and design process.</p>
+    <!-- Left Text, Right Carousel -->
+<div class="block grid-block">
+          <!-- Table -->
+  <div class="table-container" style="justify-content: center; align-items: center;">
+    <table class="link-table" style="justify-content: center; align-items: center;">
+      <thead style="justify-content: center; align-items: center;">
+        <tr>
+          <th style="font-size: large; justify-content: center; align-items: center;">Specs</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2018 Specialized Fuse Comp 6Fattie/29 Frame</td>
+        </tr>
+        <tr>
+          <td>PF30 to BSA Aluminum Crank Adapter, Milled to Fit</td>
+        </tr>
+        <tr>
+          <td>CYC X1 Pro 4, 6000W Mid-drive Motor</td>
+        </tr>
+        <tr>
+          <td>CYC A65 Battery, 65V 20Ah 18s4p, Samsung 50S 21700 Cells</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <div class="block">
-    <model-viewer src="high-res-model.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
+
+  
+<div class="carousel">
+    <div class="redirect-image-container">
+      <img src="path/to/image1.jpg" alt="Slide 1">
+    </div>
   </div>
+
+
+
+</div>
+    <p>The majority of this project was in the research portion. I spent a year between the summers of '24 and '25 regularly researching methods to the depth of determining the viability of spot welding cells and assembling my own battery.</p>
+    <p>
+      There is a significant amount of depth to building out an electric bike and you really can start from any point in the process. 
+      There are wonderful videos involving assembling your own gearboxes, battery packs, and on occasion custom motor controllers and battery management systems. 
+      As a mechanical engineer whose present knowledge of electrical systems did not come naturally, learning electrical system development for a personal project 
+      I thought would've been outside the scope I was willing to take on, so the closest to the bottom I was willing to go was at most battery pack development 
+      with a stock BMS and motor controller, and the highest was buying a bike outright, as in recent years there has been significant commercial competition in 
+      the electric bicycle market.
+    </p>
+    <details class="dropdown">
+  <summary class="dropdown-summary">
+    <span style="color:var(--accent);font-size: small; font-weight: bold;">Note on Legal Considerations</span>
+    <span class="dropdown-arrow"></span>
+  </summary>
+  <div class="dropdown-content">
+    <p>
+      There are additional aspects introduced by this commercialization, primarily increasing government regulation from originally nearly no legislature.
+      These regulations are logical, as there have been an increasing number of lethal incidents regarding these vehicles, and presently many states 
+      don't require registration or a driver's license for bikes under 750W. The issue is you cannot determine if a bike is under 750W without stopping the vehicle besides
+      monitoring the speed for the allowed speed limits, which can be mitigated by the user not exceeding standard 28/18mph speed limits applied to the different ebike classes, or
+      by knowing every model of ebike by heart, which is impractical with an increasing number of imported models that exceed legal limits. These laws additionally demonstrate a 
+      misunderstanding of how ebikes operate as they are based on the wattage that the motor is rated for, but unlike an engine, a motor can be operated
+      above the wattage it's rated for, can be rated for a wattage lower than it is capable of, and the motor controller can be tweaked in hardware by anyone with aftermarket
+      tools to adjust the limits of the vehicle. In some cases, these bikes are designed to be legal with a single wire made accessible that, when cut, remove the mandated limits from the vehicle.
+      In essence, most bikes are easily capable of exceeding the legal limits imposed on them, and the responsibility lies on the owner to use their vehicle in good faith.
+    </p>
+    <p>
+      The bike I built is software limited to not exceed the allowed limits when used on public roads and property, and
+      I sought out legislature (VA Code 46.2-100 & 46.2-904.1) to ensure I abide to the law when on public roads. The motor selected's sticker rates it for 250W continuous,
+      but it is physically capable of reaching outputs several times that. I have no intention of using that upper limit unless on private property, and if I want to someday
+      I'd first get the vehicle registered as a moped or motorcycle and acquire an M2 designation to conform to the definitions assigned in 46.2-100. At the core of it, I'm
+      acutely aware of the dangers related to these vehicles for both the rider and others and I always ride responsibly. 
+    </p>
+  </div>
+</details> 
+
+
+
+        <!-- Table -->
+  <div class="table-container" style="justify-content: center; align-items: center;">
+    <table class="link-table" style="justify-content: center; align-items: center;">
+      <thead style="justify-content: center; align-items: center;">
+        <tr>
+          <th style="font-size: large; justify-content: center; align-items: center;">Goals</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Maximize wattage per dollar.</td>
+        </tr>
+        <tr>
+          <td>End product should appear as a traditional bicycle rather than stylized as a motocross or motorcycle.</td>
+        </tr>
+        <tr>
+          <td>Preferred that the systems are cohesive.</td>
+        </tr>
+        <tr>
+          <td>The goal is to have an electric bicycle, not have continually changing plans of one for an extended duration.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+      <!-- Separator Block-->
+      <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 4rem 0;">
+
+  <h1>The Motor</h1>
+  <p>There are two motor mounting methods for an electric bicycle: mid-drive or hub drive.</p>
+
+<!-- Right Text, Left Carousel -->
+<div class="block grid-block">
+
+  <div class="text-content">
+    <h3>Mid-Drive</h3>
+    <p>The mid drive motor is positioned at the crankset, typically with an additional geartrain system.
+      This allows for the motor to have a finer adjusted torque, as you can gear it down, and the center
+      of mass isn't moved longitudinally as the motor sits under the rider. This only lowers the center of
+      mass, which is beneficial for stability anyways.
+    </p>
+  </div>
+
+  <div class="text-content">
+    <h3>Hub Drive</h3>
+    <p>Hub motors are mounted in the wheel and provide direct drive. They require completely replacing
+      one or more tires, and they move the center of mass towards the rear of the bike if you only mount one,
+      or keep the center of mass under the rider but drastically increase the mass of the bike on its own.
+      They're generally heavier as well.
+    </p>
+  </div>
+</div>
+
+<p>
+    Mid-drive motors are superior in every way except for cost, given their complexity. 
+</p>
+<p>
+  I decided that I'd want a mid-drive if I could find one for an slightly increased price when compared to a hub, or with a significant power increase.
+  In the end, I selected a CYC Motors X1 Pro 4, a 6000W capable motor and controller with easily the highest power density in a motor I'd seen available,
+  at a price that was ~$1200, controller included. I choose it additionally for the warranty and reliability of the company, as they had several generations
+  of this product and another product competing with typical Bafang and Tongsheng conversion kits in the 750-1500W range, and the power to price ratio was 
+  unmatched by any other motor. There was further consideration and research than this abridged version, but the specifications of the CYC Motor were so
+  exceptional I waited an additional few months for corrobative reviews and to see if anything else entered the market on the same level. It is as powerful as claimed.
+</p>
+
+<!-- Centered Text Block -->
+<div class="block text-content" style="max-width: 700px; margin: 0 auto; text-align: center;">
+  <h1>The Battery</h1>
+  <p>While waiting for more evidence of the motor's specifications, I began researching the battery options. If I wanted to build my own battery, I would need
+    to start from the base by locating reliable cells from a manufacturer, find another way to source high quality cells, or lower my standards of quality. The
+    third option was unacceptable, the first option would likely be too expensive at ~$500 for 72  Samsung 50S 21700s, plus nickel tape, a
+    BMS, the enclosure, and both the time and tools for assembly. This would likely be a few months of ordering, assembly, and ironing out issues for a product that would ultimately
+    be subpar as I have no prior experience. The second option, although more viable, boiled out to likely buying a secondhand battery module for an EV, potentially crashed, salvaging
+    the usable cells, and using those for assembly. It would've saved a few hundred dollars, but all of the cells likely would've seen some use and I wasn't fully comfortable tearing
+    apart a battery module. For me, this meant that building my own battery was not viable. 
+  </p>
+  <p>
+    Given the criteria, I elected to purchase a battery from the same supplier as the motor to keep everything under one provider. This decision ensured compatibility and meant the 
+    entire electrical system would be basically designed as one cohesive unit. The battery is a CYC A65, a 65V 20Ah 18s4p pack with Samsung 50S 21700 cells. It came in around $1000,
+    which is likely equivalent to what it would have cost me to build a worse battery from scratch, as it is in a powdercoated aluminum case and I certainly wouldn't have gone to that
+    degree of craftsmanship.
+  </p>
+
+
+  <!-- Right Text, Left Carousel -->
+  <h1>The Kinks</h1>
+  <div class="block grid-block">
+
+  <div class="text-content" style="vertical-align: top;">
+    <h3>Bottom Bracket</h3>
+    <p>
+      When I bought my frame, I bought it secondhand and didn't evaluate the bottom bracket.
+      It turned out that the bottom bracket was PF30, and the supported BBs are BSA 68/73/83mm
+      and BB92. Luckily, BSA is threaded with an OD ~34.8mm, and PF30 has a smooth bore diameter ~46mm,
+      so all I would need is a bottom bracket adapter to convert PF30 to BSA. I purchased an aluminum adapter and 
+      discovered that the adapter had a shoulder that was too small for the spindle of the CYC X1 Pro 4 to fit. At this
+      point I had moved back into college and was building it in my livingroom and had already spent a month building and waiting on packages to come in, so I just took it to
+      the machine shop at school and had the ID milled down until it was a light pressfit instead of dealing with more back and forth.
+    </p>
+  </div>
+
+  <div class="text-content" style="vertical-align: top;">
+    <h3>The Display</h3>
+    <p>
+      When I received and installed the electrical system, I discovered that it wouldn't turn on, and the
+      display would only light momentarily. This meant I had to troubleshoot an electrical system with 
+      very little documentation, and at the time I wasn't familiar with how an 8 pin connector worked. 
+      I tested the battery with a multimeter and confirmed it was putting out 65V, tested the controller was
+      receiving power and functioning correctly, and then tested the display by jumping the ignition pinouts
+      that the display connected to to enable it to turn on. The bike turned on and this confirmed the display 
+      was the issue, so the supplier was contacted and I received a replacement display that worked perfectly.
+    </p>
+    <p> </p>
+    <p> </p>
+  </div>
+</div>
+
+
+
+</div>
+
+
+
 </section>
 
 
@@ -663,9 +868,6 @@
 
 <!-- MARK: FLUID SIM -->
 <section id="fluidsimver" class="page">
-  <div class="block">
-     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
-  </div>
 
   <div class="block text-content" style="text-align: center;">
     <h1>Electric Bicycle</h1>
@@ -683,9 +885,6 @@
 
 <!-- MARK: CHIP CLIP -->
 <section id="chip-clip" class="page">
-  <div class="block">
-     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
-  </div>
 
   <div class="block text-content" style="text-align: center;">
     <h1>Electric Bicycle</h1>
@@ -703,9 +902,6 @@
 
 
 <section id="magnetic-damping" class="page">
-  <div class="block">
-     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
-  </div>
 
   <div class="block text-content" style="text-align: center;">
     <h1>Electric Bicycle</h1>
@@ -723,29 +919,38 @@
 
 <!-- MARK: MMN SURFACES -->
 <section id="mmn-surface-prep" class="page">
-  <div class="block">
-     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
-  </div>
 
   <div class="block text-content" style="text-align: center;">
-    <h1>Electric Bicycle</h1>
-    <p>A comprehensive look at the engineering and design process.</p>
+    <h1>Macro, Micro, Nano Material Surfaces</h1>
+    <p>I enrolled in a Nanomanufacturing course that was primarily a graduate student course that had been
+      double listed as a high level elective for undergraduate students. As part of the course, we were required to write a research paper on a topic of
+      our choosing related to nanomanufacturing. I chose MMN surface preparation techniques for titanium implants
+      as my brother had co-authored a few articles related to their performance so I had some amount
+      of prior knowledge, and it also allowed me to reference my brother's work, which I thought was cool.
+      The paper is really just a broad overview in layman's terms of several different preparation techniques and what they
+      might change that would help create a more biomemetic structure or increase hydrophilicty for the initial
+      stages of osseointegration. I didn't address every technique there is because 
+      I had a time limit on the project and for each technique I chose to include I spent several hours just reviewing the method first
+      to make sure I understood it and then several more finding research papers to reference and 
+      writing the section. Even then, this paper might have mistakes that someone with a more experienced eye
+      than mine could discern. Regardless, the complete paper is below, and hopefully demonstrates some amount of understanding regarding the different techniques. 
+    </p>
   </div>
 
-  <div class="block">
-    <model-viewer src="high-res-model.glb" auto-rotate camera-controls style="height: 600px;"></model-viewer>
+  <!-- PDF Viewer -->
+<div class="pdf-viewer" data-pdf-url="contents/projects/mmn_surface_prep/PatrickJacobs_TitaniumMMNSurfaceTechniques_NanomanufacturingTermPaper.pdf">
+  <div class="pdf-viewer-toolbar">
+    <span class="pdf-viewer-page-info">Loading…</span>
   </div>
-</section>
-
-
+  <div class="pdf-viewer-scroll">
+    <div class="pdf-viewer-loading">Loading PDF…</div>
+  </div>
+</div>
 
 
 
 <!-- MARK: MOUSETRAP CAR -->
 <section id="mousetrap" class="page">
-  <div class="block">
-     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
-  </div>
 
   <div class="block text-content" style="text-align: center;">
     <h1>Electric Bicycle</h1>
@@ -764,9 +969,6 @@
 
 <!-- MARK: FRC 23 -->
 <section id="frc-2023" class="page">
-  <div class="block">
-     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
-  </div>
 
   <div class="block text-content" style="text-align: center;">
     <h1>Electric Bicycle</h1>
@@ -783,9 +985,6 @@
 
 <!-- MARK: FRC 22 -->
 <section id="frc-2022" class="page">
-  <div class="block">
-     <button onclick="showPage('projects')" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">← Back to Projects</button>
-  </div>
 
   <div class="block text-content" style="text-align: center;">
     <h1>Electric Bicycle</h1>
@@ -810,6 +1009,19 @@
     <h1>DevBlocks Storage</h1>
     <p>Copy and paste blocks from here into your active pages.</p>
   </div>
+
+
+
+  <!-- PDF Viewer -->
+<div class="pdf-viewer" data-pdf-url="contents/resume/resume.pdf">
+  <div class="pdf-viewer-toolbar">
+    <span class="pdf-viewer-page-info">Loading…</span>
+  </div>
+  <div class="pdf-viewer-scroll">
+    <div class="pdf-viewer-loading">Loading PDF…</div>
+  </div>
+</div>
+
 
 <!-- Project Cards - Gallery Style -->
   <div class="block" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
@@ -1102,6 +1314,10 @@
   <div class="taskbar-tabs" id="taskbar-content">
     </div>
 </div>
+
+<a href="#projects" id="back-to-projects" class="back-to-projects" aria-label="Back to Projects">
+  <span class="arrow">❮  </span>
+</a>
 
   <button id="scroll-top" aria-label="Scroll to Top">▴</button>
 
