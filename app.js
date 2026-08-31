@@ -309,23 +309,30 @@ const PDFViewerModule = {
             return;
         }
 
-        scrollEl.innerHTML = '';
+                scrollEl.innerHTML = '';
         const numPages = pdfDoc.numPages;
         const dpr = window.devicePixelRatio || 1;
 
-        // Build one placeholder wrapper per page, sized via aspect-ratio
-        // (based on page 1's dimensions) so scroll height is stable before render.
-        const firstPage = await pdfDoc.getPage(1);
-        const baseViewport = firstPage.getViewport({ scale: 1 });
-        const aspectRatio = baseViewport.width / baseViewport.height;
+        // Measure every page's own dimensions individually (lightweight —
+        // this just reads each page's metadata, no rendering happens here),
+        // so each placeholder matches that page's real orientation instead
+        // of assuming they all match page 1.
+        const pageDims = [];
+        for (let i = 1; i <= numPages; i++) {
+            const page = await pdfDoc.getPage(i);
+            const viewport = page.getViewport({ scale: 1 });
+            pageDims.push({ width: viewport.width, height: viewport.height });
+        }
 
         const pageEls = [];
         for (let i = 1; i <= numPages; i++) {
+            const { width, height } = pageDims[i - 1];
+
             const wrap = document.createElement('div');
             wrap.className = 'pdf-page';
             wrap.dataset.pageNum = i;
-            wrap.style.aspectRatio = aspectRatio;
-            wrap.style.maxWidth = `${baseViewport.width}px`;
+            wrap.style.aspectRatio = width / height;
+            wrap.style.maxWidth = `${width}px`;
 
             const placeholder = document.createElement('div');
             placeholder.className = 'pdf-page-placeholder';
@@ -335,7 +342,6 @@ const PDFViewerModule = {
             scrollEl.appendChild(wrap);
             pageEls.push(wrap);
         }
-
         const renderedPages = new Set();
 
         const renderPage = async (wrap) => {

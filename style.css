@@ -948,3 +948,94 @@ body.in-project .back-to-projects.scrolled-down {
     display: none !important;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/* IMAGE BLOCK — 2 stacked squares + 1 large image at 2x their height         */
+/* -------------------------------------------------------------------------- */
+
+.image-block-2-1 {
+  --square-size: 300px; /* controls both the small squares and (via 2x) the large image's height */
+
+  display: grid;
+  grid-template-columns: var(--square-size) auto;
+  gap: 1rem;
+  margin: 1.5rem auto;   /* centers the whole block as a unit */
+  justify-content: center; /* don't stretch to fill the row — hug the content width */
+}
+
+.image-block-2-1 img {
+  display: block;
+  border-radius: var(--radius);
+}
+
+/* Small images: forced square via aspect-ratio, cropped to fill via object-fit */
+.image-block-2-1 .img-a,
+.image-block-2-1 .img-b {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+/* Large image: exactly 2x the square's height, width follows its own aspect ratio */
+.image-block-2-1 .img-large {
+  height: calc(var(--square-size) * 2 + 1rem); /* 2 squares + the gap between them */
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Default: large image on the right */
+.image-block-2-1[data-large="right"] {
+  grid-template-columns: var(--square-size) auto;
+}
+.image-block-2-1[data-large="right"] .img-a {
+  grid-column: 1;
+  grid-row: 1;
+}
+.image-block-2-1[data-large="right"] .img-b {
+  grid-column: 1;
+  grid-row: 2;
+}
+.image-block-2-1[data-large="right"] .img-large {
+  grid-column: 2;
+  grid-row: 1 / 3;
+}
+
+/* Large image on the left */
+.image-block-2-1[data-large="left"] {
+  grid-template-columns: auto var(--square-size);
+}
+.image-block-2-1[data-large="left"] .img-a {
+  grid-column: 2;
+  grid-row: 1;
+}
+.image-block-2-1[data-large="left"] .img-b {
+  grid-column: 2;
+  grid-row: 2;
+}
+.image-block-2-1[data-large="left"] .img-large {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+
+/* Stack full-width on mobile instead of squeezing the grid */
+@media (max-width: 768px) {
+  .image-block-2-1,
+  .image-block-2-1[data-large="right"],
+  .image-block-2-1[data-large="left"] {
+    grid-template-columns: 1fr;
+  }
+  .image-block-2-1 .img-a,
+  .image-block-2-1 .img-b,
+  .image-block-2-1 .img-large {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    justify-self: stretch;
+  }
+  .image-block-2-1 .img-large {
+    aspect-ratio: auto;
+  }
+}
